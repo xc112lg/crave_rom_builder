@@ -9,13 +9,8 @@ crave run --no-patch -- "              #Im not a bot
           #© crave.io Inc. 2017-2024
         #no dual account just to build faster
               #respect the rule
-#this is only a test do not mind this second queue i cancel later
+#might take sometime to build mine sorry guys, disk taken over  my crave due to inactivity
 
-rm -rf .repo/local_manifests 
-git clone https://github.com/jayz1212/local_manifests -b main .repo/local_manifests
-repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
-source build/envsetup.sh
-lunch -userdebug
-m bacon
+mkdir -p cc &&rm -rf scripts prebuilts&& git clone https://github.com/xc112lg/scripts.git -b cd10 && repo init --depth 1 -u https://github.com/crdroidandroid/android.git -b 14.0 --git-lfs  &&  chmod u+x scripts/sync.sh &&bash scripts/sync.sh
 "
 . a.sh
