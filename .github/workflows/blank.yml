@@ -33,11 +33,11 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: false
-        default: ""
+        default: 'lineage_h872'
       BUILD_TYPE:
         description: 'Type of build:'
         required: false
-        default: ''
+        default: '-userdebug'
         type: choice
         options: 
         - '-eng'
