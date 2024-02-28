@@ -128,7 +128,7 @@ jobs:
               exit 1
           elif [ -n "${{ inputs.THE_FORBIDDEN_ONE }}" ]; then
               echo "${{ inputs.BUILD_DIFFERENT_ROM }}&& \">> craverun.sh
-              echo "${{ inputs.THE_FORBIDDEN_ONE }}"&& \>> craverun.sh
+              echo "${{ inputs.THE_FORBIDDEN_ONE }}&& \">> craverun.sh
           else
               echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
               echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
