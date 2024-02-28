@@ -119,7 +119,7 @@ jobs:
           echo "          #© crave.io Inc. 2017-2024">> craverun.sh
           echo "        #no dual account just to build faster">> craverun.sh
           echo "              #respect the rule">> craverun.sh
-          echo "#${{ inputs.SAY_SOMETHING_NICE }}">> craverun.sh
+          echo "#${{ inputs.SAY_SOMETHING_NICE }} && \">> craverun.sh
           echo "THE_FORBIDDEN_ONE: ${{ inputs.THE_FORBIDDEN_ONE }}"
           echo "PRODUCT_NAME: ${{ inputs.PRODUCT_NAME }}"
           
