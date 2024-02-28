@@ -1,4 +1,4 @@
-cd DerpFest13
-repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13 --depth=1
+cd LineageOS20
+repo init -u https://github.com/accupara/los20.git -b lineage-20.0 --git-lfs --depth=1
 chmod +x craverun.sh
 . craverun.sh
