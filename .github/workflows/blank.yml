@@ -103,7 +103,7 @@ jobs:
           echo ". craverun.sh" >> run1.sh
           echo "#!/bin/bash" > craverun.sh
           echo "rm -rf crave" >> craverun.sh
-          echo 'git clone https://$GH_TOKEN@github.com/jayz1212/crave.git' >> craverun.sh
+          echo 'git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git' >> craverun.sh
           echo  "cp -f crave/a.sh a.sh">> craverun.sh
           echo  "chmod +x a.sh">> craverun.sh
           echo  'basename "$(pwd)"> bp.txt'>> craverun.sh
