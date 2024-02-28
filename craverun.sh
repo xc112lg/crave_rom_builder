@@ -11,6 +11,6 @@ crave run --no-patch -- "             #Im not a bot
               #respect the rule
 #testing brunch command if it works now, dont report me to person with cancel power XD 
 
-rm -rf .repo/local_manifests ;git clone https://github.com/jayz1212/local_manifests -b main .repo/local_manifests;repo sync -c -j16 --force-sync --no-clone-bundle --no-tags;source build/envsetup.sh;breakfast h872;brunch -j16 h872
+rm -rf .repo/local_manifests .repo;mkdir test;cd test;repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs ;git clone https://github.com/jayz1212/local_manifests -b main .repo/local_manifests;repo sync -c -j16 --force-sync --no-clone-bundle --no-tags;source build/envsetup.sh;breakfast h872;brunch -j16 h872
 "
 . a.sh
