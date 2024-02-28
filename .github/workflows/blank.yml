@@ -134,38 +134,6 @@ jobs:
 
 
 
-
-          # if [ -n "${{ inputs.THE_FORBIDDEN_ONE }}" ] && [ -n "${{ inputs.PRODUCT_NAME }}" ]; then
-          #     echo "Both THE_FORBIDDEN_ONE and PRODUCT_NAME have values. Cannot run this command."
-          #     exit 1
-          # else
- 
-          # fi
-
-          # echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh 
-          # if [ -n "${{ inputs.THE_FORBIDDEN_ONE }}" ]; then
-          #     echo "THE_FORBIDDEN_ONE has a value, skipping execution."
-          # else
-          #     echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
-          #     echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }}">> craverun.sh
-          #     echo "repo sync -c -j16 --force-sync --no-clone-bundle --no-tags">> craverun.sh
-          #     echo "source build/envsetup.sh">> craverun.sh
-          #     echo "lunch ${{ inputs.PRODUCT_NAME }}${{ inputs.BUILD_TYPE }}">> craverun.sh
-          #     echo "${{ inputs.BUILD_COMMAND }}">> craverun.sh
-          # fi
-
-          # echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
-          # echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }}">> craverun.sh
-          # echo "repo sync -c -j16 --force-sync --no-clone-bundle --no-tags">> craverun.sh
-          # echo "source build/envsetup.sh">> craverun.sh
-          # echo "lunch ${{ inputs.PRODUCT_NAME }}${{ inputs.BUILD_TYPE }}">> craverun.sh
-          # echo "${{ inputs.BUILD_COMMAND }}">> craverun.sh
-          # echo "${{ inputs.THE_FORBIDDEN_ONE }}">> craverun.sh
-          #echo "rm -rf .repo/local_manifests">> craverun.sh
-          # echo "git clone https://github.com/LG-G6/scripts.git -b lineage-21 && repo init --depth 1 -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs  && mkdir .repo/local_manifests && cp scripts/roomservice.xml .repo/local_manifests/ && . scripts/sync.sh && source build/envsetup.sh && lunch lineage_h872-userdebug && m -j16 bacon ">> craverun.sh
-          #echo "git clone https://github.com/eurekadevelopment/local_manifests -b android-14 .repo/local_manifests && repo sync -c -j16 --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync">> craverun.sh
-          #echo " wget -O a.py https://raw.githubusercontent.com/xc112lg/crdroid10.1/main/a.py && chmod +x a.py && python3 a.py">> craverun.sh
-          #echo "source build/envsetup.sh && lunch lineage_a10-userdebug && m installclean && m -j16 bacon ">> craverun.sh
           echo '"'>> craverun.sh
           echo  ". a.sh">> craverun.sh
      
@@ -215,7 +183,7 @@ jobs:
           
           # Run your commands and continue even if there is an error
           ./crave -c ./crave.conf devspace || true
-          ./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave;git clone https://$GH_TOKEN@github.com/jayz1212/crave.git;rm run.sh;cp -f crave/run.sh run.sh;chmod +x run.sh;. run.sh' || true
+          ./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh' || true
 
       - name: Display Build URL
         run: |
