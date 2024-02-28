@@ -33,7 +33,7 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: false
-        default: "lineage_h872"
+        default: ""
       BUILD_TYPE:
         description: 'Type of build:'
         required: false
