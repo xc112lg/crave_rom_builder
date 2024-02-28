@@ -1,12 +1,12 @@
 #!/bin/bash
 
-rm crave/*.zip crave/*.txt crave/*.json crave/*.img
+rm crave_rom_builder/*.zip crave_rom_builder/*.txt crave_rom_builder/*.json crave_rom_builder/*.img
 # crave pull out/target/product/*/recovery.zip
 crave pull out/target/product/*/*.zip out/target/product/*/recovery.img out/target/product/*/*.json out/target/product/*/changelog_*.txt
 
 
 source_folder="."
-destination_folder="crave"
+destination_folder="crave_rom_builder"
 
 for file in $(find "$source_folder" -type f \( -name "*.zip" -o -name "*.img" -o -name "*.txt" -o -name "*.json" \) | grep -v "$destination_folder"); do
     [ -e "$file" ] || continue
@@ -34,6 +34,6 @@ done
 
 export GH_TOKEN=$(cat ../gh_token.txt)
 gh auth login --with-token $GH_TOKEN
-cd crave
+cd crave_rom_builder
 chmod u+x m.sh
 . m.sh
