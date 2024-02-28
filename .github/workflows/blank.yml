@@ -129,8 +129,10 @@ jobs:
               echo "Both THE_FORBIDDEN_ONE and PRODUCT_NAME have values. Cannot run this command. Exiting."
               exit 1
           elif [ -n "${{ inputs.THE_FORBIDDEN_ONE }}" ]; then
+              echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
               echo "${{ inputs.THE_FORBIDDEN_ONE }}">> craverun.sh
           else
+              echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
               echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
               echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }} .repo/local_manifests">> craverun.sh
               echo "repo sync -c -j16 --force-sync --no-clone-bundle --no-tags">> craverun.sh
