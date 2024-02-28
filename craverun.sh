@@ -9,11 +9,6 @@ crave run --no-patch --clean -- "              #Im not a bot
           #© crave.io Inc. 2017-2024
         #no dual account just to build faster
               #respect the rule
-rm -rf .repo/local_manifests 
-git clone https://github.com/jayz1212/local_manifests -b main .repo/local_manifests
-repo sync -c -j16 --force-sync --no-clone-bundle --no-tags
-source build/envsetup.sh
-lunch -eng
-m bacon
+test tin
 "
 . a.sh
