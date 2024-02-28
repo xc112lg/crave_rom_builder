@@ -1,0 +1,43 @@
+name: tag cleaner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  delete_tags_and_releases:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Delete Git Tags
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        # Delete all Git tags
+        tags=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/git/refs/tags" | jq -r '.[].ref' | awk -F'/tags/' '{print $2}')
+        for tag in $tags; do
+          git push origin --delete $tag
+          curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/git/refs/tags/$tag"
+        done
+
+    - name: Delete Releases
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        # Delete GitHub releases
+        releases=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/releases" | jq -r '.[].id')
+        for release_id in $releases; do
+          # Delete associated assets of the release
+          assets=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/releases/$release_id/assets" | jq -r '.[].id')
+          for asset_id in $assets; do
+            curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/releases/assets/$asset_id"
+          done
+          
+          # Delete the release itself
+          curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/releases/$release_id"
+        done

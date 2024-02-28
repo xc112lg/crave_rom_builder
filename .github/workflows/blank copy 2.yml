@@ -1,0 +1,144 @@
+name: Start job fg
+
+on:
+  #push:
+   # branches:
+    #  - main 
+  workflow_dispatch:
+    inputs:
+      BASE_PROJECT:
+        description: 'Choose a base project:'
+        required: true
+        default: 'ArrowOS13.1'
+        type: choice
+        options:
+          - 'arrow'
+          - 'DerpFest13.0'
+      BUILD_DIFFERENT_ROM:
+        description: "Command to initialize a different 'repo' project:"
+        required: false
+      REMOVALS:
+        description: "Folders to be removed before syncing:"
+        required: false
+      LOCAL_MANIFEST:
+        description: "Personal local manifest [repository or raw]:"
+        required: true
+        default: 'https://github.com/sounddrill31/local_manifests'
+      LOCAL_MANIFEST_BRANCH:
+        description: "Personal local manifest's branch:"
+        required: false
+        default: 'lineage-oxygen'
+      DEVICE_NAME:
+        description: "Device's codename:"
+        required: false
+        default: "oxygen"
+      PRODUCT_NAME:
+        description: "Product to build:"
+        required: false
+        default: "lineage_oxygen"
+      BUILD_COMMAND:
+        description: 'Command to be used for compiling:'
+        required: false
+        default: 'mka bacon'
+      BUILD_TYPE:
+        description: 'Type of build:'
+        required: false
+        default: 'userdebug'
+        type: choice
+        options: 
+        - 'eng'
+        - 'userdebug'
+        - 'user' 
+      THE_FORBIDDEN_ONE :
+        description: 'Use this command at caution it might delete you project, nahh who cares'
+        required: false
+        default: ''
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git clean -fdX
+
+
+      - name: Set up Environment
+        run: |
+          BASE_PROJECT_NAME="${{ inputs.BASE_PROJECT }}"
+          case $BASE_PROJECT_NAME in
+            'arrow') BASE_PROJECT_VALUE='repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1' ;;
+            'DerpFest13.0') BASE_PROJECT_VALUE='repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13 --depth=1' ;;
+            *) BASE_PROJECT_VALUE='default-command' ;;  # Provide a default command for unknown options
+          esac
+          echo "BASE_PROJECT_NAME=$BASE_PROJECT_NAME" >> $GITHUB_ENV
+          echo "BASE_PROJECT_VALUE=$BASE_PROJECT_VALUE" >> $GITHUB_ENV
+
+      - name: Edit run.sh
+        run: |
+          echo "#!/bin/bash" > run.sh
+          echo 'exposrt GH_TOKEN=$(cat gh_token.txt)' >> run.sh
+          echo 'gh auth login --with-token $GH_TOKEN' >> run.sh
+          echo "gh auth/nstatus" >> run.sh
+          echo "mkdir -p ${{ inputs.BASE_PROJECT }}" >> run.sh
+          echo 'bp=$(cat bp.txt)' >> run.sh
+          echo "cp -f crave/run1.sh run1.sh" >> run.sh
+          echo "chmod +x run1.sh" >> run.sh
+          echo "cp -f crave/craverun.sh ${{ inputs.BASE_PROJECT }}" >> run.sh
+          echo 'tmux set-environment bp "$bp"'>> run.sh
+          echo 'tmux kill-session -t $bp' >> run.sh
+          echo 'tmux new-session -d -s $bp' >> run.sh
+          echo 'tmux list-session -t $bp' >> run.sh
+          echo 'tmux send-keys -t $bp 'C-a' 'C-k' './run1.sh' 'C-m'' >> run.sh
+          echo 'echo "$(pwd)" > bp.txt'
+          #echo 'tmux send-keys -t $bp C-a C-k './run1.sh'' >> run.sh
+          echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run1.sh
+          echo 'gh auth login --with-token $GH_TOKEN' >> run1.sh
+          echo "cd ${{ inputs.BASE_PROJECT }}" > run1.sh
+          echo "[ -d ".repo" ] ||${BASE_PROJECT_VALUE}" >> run1.sh
+          echo "chmod +x craverun.sh" >> run1.sh
+          echo ". craverun.sh" >> run1.sh
+
+     
+      - name: Check for changes
+        id: check_changes
+        run: |
+          changes=$(git diff --name-only)
+          if [ -z "$changes" ]; then
+            echo "CHANGES=false" >> $GITHUB_ENV
+          else
+            echo "CHANGES=true" >> $GITHUB_ENV
+          fi
+
+      - name: Commit changes
+        if: env.CHANGES == 'true'
+        run: |
+          git add .
+          git commit -m "Update run.sh with commands"
+          git status
+
+      - name: Push changes
+        if: env.CHANGES == 'true'
+        run: |
+          git push https://github.com/${{ github.repository }}.git HEAD:main
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}      
+
+      - name: Set File URL
+        id: set_url
+        run: echo "::set-output name=url::${{ secrets.GH_TOKEN }}@raw.githubusercontent.com/${{ github.repository }}/main/run.sh"
+
+      #- name: Download File
+      #  run: wget -O run.sh "${{ steps.set_url.outputs.url }}"
+
+
+      - name: Download and Run get_crave.sh
+        run: |
+          curl -s https://raw.githubusercontent.com/accupara/crave/master/get_crave.sh | bash -s --
+          echo '${{ secrets.CONF }}' > crave.conf
+
