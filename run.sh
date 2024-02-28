@@ -4,9 +4,9 @@ gh auth login --with-token $GH_TOKEN
 gh auth status
 mkdir -p arrow
 bp=$(cat bp.txt)
-cp -f crave/run1.sh run1.sh
+cp -f crave_rom_builder/run1.sh run1.sh
 chmod +x run1.sh
-cp -f crave/craverun.sh arrow
+cp -f crave_rom_builder/craverun.sh arrow
 tmux set-environment bp "$bp"
 tmux kill-session -t $bp
 tmux new-session -d -s $bp
