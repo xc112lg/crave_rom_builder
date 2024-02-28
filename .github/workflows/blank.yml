@@ -114,12 +114,12 @@ jobs:
           echo  "cp -f crave_rom_builder/a.sh a.sh">> craverun.sh
           echo  "chmod +x a.sh">> craverun.sh
           echo  'basename "$(pwd)"> bp.txt'>> craverun.sh
-          echo 'crave run --no-patch -- "              #Im not a bot'>> craverun.sh
+          echo 'crave run --no-patch --"              #Im not a bot'>> craverun.sh
           echo "          #Thanks to UV n Team">> craverun.sh
           echo "          #© crave.io Inc. 2017-2024">> craverun.sh
           echo "        #no dual account just to build faster">> craverun.sh
           echo "              #respect the rule">> craverun.sh
-          echo "#${{ inputs.SAY_SOMETHING_NICE }}">> craverun.sh
+          echo "#${{ inputs.SAY_SOMETHING_NICE }}&& \">> craverun.sh
           echo "THE_FORBIDDEN_ONE: ${{ inputs.THE_FORBIDDEN_ONE }}"
           echo "PRODUCT_NAME: ${{ inputs.PRODUCT_NAME }}"
           
@@ -127,8 +127,8 @@ jobs:
               echo "Both THE_FORBIDDEN_ONE and PRODUCT_NAME have values. Cannot run this command. Exiting."
               exit 1
           elif [ -n "${{ inputs.THE_FORBIDDEN_ONE }}" ]; then
-              echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
-              echo "${{ inputs.THE_FORBIDDEN_ONE }}">> craverun.sh
+              echo "${{ inputs.BUILD_DIFFERENT_ROM }}&& \">> craverun.sh
+              echo "${{ inputs.THE_FORBIDDEN_ONE }}"&& \>> craverun.sh
           else
               echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
               echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
