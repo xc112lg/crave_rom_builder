@@ -9,7 +9,7 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'arrowOS13'
+        default: 'ArrowOS13.1'
         type: choice
         options:
           - 'arrowOS13'
@@ -33,11 +33,11 @@ on:
       PRODUCT_NAME:
         description: "Product to build:"
         required: false
-        default: 'lineage_h872'
+        default: ""
       BUILD_TYPE:
         description: 'Type of build:'
         required: false
-        default: '-userdebug'
+        default: ''
         type: choice
         options: 
         - '-eng'
@@ -55,6 +55,8 @@ on:
         description: 'Incase you want to say something'
         required: false
         default: ''        
+
+        
 jobs:
   deploy:
     runs-on: ubuntu-latest
