@@ -1,4 +1,4 @@
-cd LineageOS20.0
-repo init -u https://github.com/accupara/los20.git -b lineage-20.0 --git-lfs --depth=1
+cd arrow
+repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1
 chmod +x craverun.sh
 . craverun.sh
