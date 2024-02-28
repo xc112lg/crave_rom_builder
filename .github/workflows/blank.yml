@@ -9,13 +9,12 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'arrowOS13'
+        default: 'ArrowOS13.1'
         type: choice
         options:
-          - 'arrowOS13'
-          - 'DerpFest13'
-          - 'LineageOS20'
-          - 'LineageOS21'
+          - 'arrow'
+          - 'DerpFest13.0'
+          - 'LineageOS20.0'
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project:"
         required: false
@@ -51,12 +50,6 @@ on:
         description: 'Use this command at caution it might delete you project, nahh who cares'
         required: false
         default: ''
-      SAY_SOMETHING :
-        description: 'Incase you want to say something'
-        required: false
-        default: ''        
-
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -76,14 +69,9 @@ jobs:
         run: |
           BASE_PROJECT_NAME="${{ inputs.BASE_PROJECT }}"
           case $BASE_PROJECT_NAME in
-          - 'arrowOS13'
-          - 'DerpFest13'
-          - 'LineageOS20'
-          - 'LineageOS21'
-            'arrowOS13') BASE_PROJECT_VALUE='repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1' ;;
-            'DerpFest13') BASE_PROJECT_VALUE='repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13 --depth=1' ;;
-            'LineageOS20') BASE_PROJECT_VALUE='repo init -u https://github.com/accupara/los20.git -b lineage-20.0 --git-lfs --depth=1' ;;
-            'LineageOS21') BASE_PROJECT_VALUE='repo init -u https://github.com/accupara/los21.git -b lineage-21.0 --git-lfs --depth=1' ;;
+            'arrow') BASE_PROJECT_VALUE='repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1' ;;
+            'DerpFest13.0') BASE_PROJECT_VALUE='repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13 --depth=1' ;;
+            'LineageOS20.0') BASE_PROJECT_VALUE='repo init -u https://github.com/accupara/los20.git -b lineage-20.0 --git-lfs --depth=1' ;;
             *) BASE_PROJECT_VALUE='default-command' ;;  # Provide a default command for unknown options
           esac
           echo "BASE_PROJECT_NAME=$BASE_PROJECT_NAME" >> $GITHUB_ENV
@@ -119,12 +107,12 @@ jobs:
           echo  "cp -f crave/a.sh a.sh">> craverun.sh
           echo  "chmod +x a.sh">> craverun.sh
           echo  'basename "$(pwd)"> bp.txt'>> craverun.sh
-          echo 'crave run --no-patch --clean -- "          #Im not a bot'>> craverun.sh
-          echo "          #Thanks to UV n Team">> craverun.sh
+          echo 'crave run --no-patch --clean -- "              #Im not a bot'>> craverun.sh
+          echo "          #only a test n thanks to UV n Team">> craverun.sh
           echo "          #© crave.io Inc. 2017-2024">> craverun.sh
           echo "        #no dual account just to build faster">> craverun.sh
           echo "              #respect the rule">> craverun.sh
-          echo "#${{ inputs.SAY_SOMETHING }}">> craverun.sh
+          # echo "  #testing if build time of other device is lessen">> craverun.sh
 
           echo "THE_FORBIDDEN_ONE: ${{ inputs.THE_FORBIDDEN_ONE }}"
           echo "PRODUCT_NAME: ${{ inputs.PRODUCT_NAME }}"
