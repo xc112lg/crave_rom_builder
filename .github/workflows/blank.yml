@@ -92,17 +92,18 @@ jobs:
           echo "BASE_PROJECT_NAME=$BASE_PROJECT_NAME" >> $GITHUB_ENV
           echo "BASE_PROJECT_VALUE=$BASE_PROJECT_VALUE" >> $GITHUB_ENV
 
+        
+
+      - name: Edit run.sh
+        run: |
+
           if [ "${{ inputs.CLEAN_BUILD }}" == "yes" ]; then
             export CLEAN_FLAG="--clean"
           else
             export CLEAN_FLAG=""
           fi
             echo "Clean Flag: $CLEAN_FLAG"
-        env:
-            CLEAN_FLAG: ''
 
-      - name: Edit run.sh
-        run: |
           echo "#!/bin/bash" > run.sh
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run.sh
           echo 'gh auth login --with-token $GH_TOKEN' >> run.sh
@@ -160,7 +161,10 @@ jobs:
           
           echo '"'>> craverun.sh
           echo  ". a.sh">> craverun.sh
-     
+
+          env:
+            CLEAN_FLAG: ''
+
       - name: Check for changes
         id: check_changes
         run: |
