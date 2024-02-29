@@ -59,10 +59,10 @@ on:
         options: 
         - 'yes'
         - 'no'
-      SAY_SOMETHING_NICE :
-        description: 'anything you want to say'
-        required: false
-        default: ''
+      # SAY_SOMETHING_NICE :
+      #   description: 'anything you want to say'
+      #   required: false
+      #   default: ''
               
 jobs:
   deploy:
