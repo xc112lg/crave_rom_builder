@@ -5,7 +5,6 @@ cp -f crave_rom_builder/a.sh a.sh
 chmod +x a.sh
 basename "$(pwd)"> bp.txt
 crave run --no-patch  -- "
-"             #Im not a bot
           #Thanks to UV n Team
           #© crave.io Inc. 2017-2024
         #no dual account just to build faster
