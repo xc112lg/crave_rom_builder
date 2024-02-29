@@ -4,13 +4,20 @@ git clone https://$GH_TOKEN@github.com/xc112lg/crave_rom_builder.git
 cp -f crave_rom_builder/a.sh a.sh
 chmod +x a.sh
 basename "$(pwd)"> bp.txt
-crave run --no-patch -- "             #Im not a bot
+crave run --no-patch -- 
+"             #Im not a bot
           #Thanks to UV n Team
           #© crave.io Inc. 2017-2024
         #no dual account just to build faster
               #respect the rule
-#testing brunch command if it works now, dont report me to person with cancel power XD 
+# 
 
-rm -rf .repo/local_manifests .repo;mkdir test;cd test;repo init -u https://github.com/LineageOS/android.git -b lineage-20.0 --git-lfs ;git clone https://github.com/jayz1212/local_manifests -b main .repo/local_manifests;repo sync -c -j16 --force-sync --no-clone-bundle --no-tags;source build/envsetup.sh;breakfast h872;brunch -j16 h872
+rm -rf .repo/local_manifests 
+git clone https://github.com/jayz1212/local_manifests -b main .repo/local_manifests
+              #respect the rule
+repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags
+source build/envsetup.sh
+lunch -userdebug
+m bacon
 "
 . a.sh
