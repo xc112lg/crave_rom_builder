@@ -51,6 +51,14 @@ on:
         description: 'Use this command at caution it might delete you project, nahh who cares'
         required: false
         default: ''
+      CLEAN_BUILD:
+        description: 'Build with a clean workspace?'
+        required: true
+        default: 'no'
+        type: choice
+        options: 
+        - 'yes'
+        - 'no'
       SAY_SOMETHING_NICE :
         description: 'anything you want to say'
         required: false
@@ -84,6 +92,11 @@ jobs:
           echo "BASE_PROJECT_NAME=$BASE_PROJECT_NAME" >> $GITHUB_ENV
           echo "BASE_PROJECT_VALUE=$BASE_PROJECT_VALUE" >> $GITHUB_ENV
 
+          if [ "${{ inputs.CLEAN_BUILD }}" == "yes" ]; then
+            export CLEAN_FLAG="--clean"
+          else
+            export CLEAN_FLAG=""
+          fi
       - name: Edit run.sh
         run: |
           echo "#!/bin/bash" > run.sh
@@ -114,7 +127,8 @@ jobs:
           echo  "cp -f crave_rom_builder/a.sh a.sh">> craverun.sh
           echo  "chmod +x a.sh">> craverun.sh
           echo  'basename "$(pwd)"> bp.txt'>> craverun.sh
-          echo 'crave run --no-patch -- "             #Im not a bot'>> craverun.sh
+          echo "crave run --no-patch -- $CLEAN_FLAG">> craverun.sh
+          echo '"             #Im not a bot'>> craverun.sh
           echo "          #Thanks to UV n Team">> craverun.sh
           echo "          #© crave.io Inc. 2017-2024">> craverun.sh
           echo "        #no dual account just to build faster">> craverun.sh
