@@ -162,8 +162,7 @@ jobs:
           echo '"'>> craverun.sh
           echo  ". a.sh">> craverun.sh
 
-          env:
-            CLEAN_FLAG: ''
+      
 
       - name: Check for changes
         id: check_changes
