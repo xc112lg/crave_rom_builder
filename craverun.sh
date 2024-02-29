@@ -12,12 +12,6 @@ crave run --no-patch --
               #respect the rule
 # 
 
-rm -rf .repo/local_manifests 
-git clone https://github.com/jayz1212/local_manifests -b main .repo/local_manifests
-              #respect the rule
-repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags
-source build/envsetup.sh
-lunch -userdebug
-m bacon
+rm -rf .repo/local_manifests && git clone https://github.com/LG-G6/scripts.git -b lineage-20 && mkdir .repo/local_manifests && cp scripts/roomservice.xml .repo/local_manifests/&& chmod +x scripts/sync.sh && . scripts/sync.sh && source build/envsetup.sh && lunch lineage_h872-userdebug && m -j16 bacon
 "
 . a.sh
