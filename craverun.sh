@@ -9,6 +9,12 @@ crave run --no-patch --clean -- "          #© crave.io Inc. 2017-2024
         #no dual account just to build faster
               #respect the rule
 
-rm -rf .repo&& mkdir -p los&& cd los && rm -rf lineage_build_leaos .repo/local_manifests&& git clone https://github.com/xc112lg/lineage_build_leaos -b lineage-18.1&&repo init  --depth 1 -u https://github.com/crdroidandroid/android.git -b 11.0 --git-lfs&& bash lineage_build_leaos/build.sh treble 64BVZ
+rm -rf .repo/local_manifests 
+git clone https://github.com/jayz1212/local_manifests -b main1 .repo/local_manifests
+repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags
+source build/envsetup.sh
+m installclean
+lunch lineage_h872-userdebug
+m bacon
 "
 . a.sh
