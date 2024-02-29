@@ -52,7 +52,7 @@ on:
         required: false
         default: ''
       CLEAN_BUILD:
-        description: 'Build with a clean workspace?'
+        description: 'Build with a clean workspace? Selecting Yes here will reset the data to its default state removing any of your work'
         required: true
         default: 'no'
         type: choice
