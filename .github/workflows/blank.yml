@@ -132,7 +132,7 @@ jobs:
           echo  "cp -f crave_rom_builder/a.sh a.sh">> craverun.sh
           echo  "chmod +x a.sh">> craverun.sh
           echo  'basename "$(pwd)"> bp.txt'>> craverun.sh
-          echo "crave run --no-patch $CLEAN_FLAG -- \"" >> craverun.sh
+          echo "crave run --no-patch $CLEAN_FLAG -- \"             \#Im not a bot" >> craverun.sh
           #echo '"             #Im not a bot'>> craverun.sh
           echo "          #Thanks to UV n Team">> craverun.sh
           echo "          #© crave.io Inc. 2017-2024">> craverun.sh
