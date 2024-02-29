@@ -97,7 +97,7 @@ jobs:
           else
             export CLEAN_FLAG=""
           fi
-          echo "Clean Flag: $CLEAN_FLAG"
+            echo "Clean Flag: $CLEAN_FLAG"
         env:
             CLEAN_FLAG: ''
 
