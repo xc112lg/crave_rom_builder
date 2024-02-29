@@ -11,6 +11,6 @@ crave run --no-patch  -- "             #Im not a bot
               #respect the rule
 # 
 
-this is a special box for the big boys only dont use
+rm -rf out/target/product/generic_arm64
 "
 . a.sh
