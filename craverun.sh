@@ -9,6 +9,6 @@ crave run --no-patch  -- "          #© crave.io Inc. 2017-2024
         #no dual account just to build faster
               #respect the rule
 
-m installclean
+source build/envsetup.sh;m installclean
 "
 . a.sh
