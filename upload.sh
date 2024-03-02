@@ -50,7 +50,7 @@ filenames=(*.zip *.img *.txt *.json)
 # read -p "Enter the filenames (separated by spaces): " -a filenames
 
 # Create the release on GitHub
-if ! gh release create "$common_part" --title "Release $common_part" --notes "Release notes"; then
+if ! gh release create "$common_part" --title "Release $common_part" --notes "Release notes" 2>&1; then
     echo "Error: Failed to create the release."
     exit 1
 fi
