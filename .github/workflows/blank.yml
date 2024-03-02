@@ -17,7 +17,7 @@ on:
           - 'LineageOS20'
           - 'LineageOS21'
       BUILD_DIFFERENT_ROM:
-        description: "Command to initialize a different 'repo' project:"
+        description: "Command to initialize a different 'repo' project: repo init -u https://github.com/crdroidandroid/android.git -b 14.0 --git-lfs"
         required: false
       REMOVALS:
         description: "Folders to be removed before syncing:"
