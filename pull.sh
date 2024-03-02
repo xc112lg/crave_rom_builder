@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm crave_rom_builder/*.zip crave_rom_builder/*.txt crave_rom_builder/*.json crave_rom_builder/*.img
-crave pull out/target/product/*/recovery.img
+#crave pull out/target/product/*/recovery.img
 #crave pull out/target/product/*/*.zip out/target/product/*/recovery.img out/target/product/*/*.json out/target/product/*/changelog_*.txt
 
 
