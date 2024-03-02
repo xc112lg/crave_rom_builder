@@ -1,19 +1,17 @@
-name: Your Workflow Name
+name: Example Workflow
 
 on:
   push:
     branches:
-      - main # Adjust the branch name as needed
+      - main
 
 jobs:
-  your_job:
+  example_job:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ github.repository }}
-          token: ${{ secrets.GH_TOKEN }}
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Echo repository name
-        run: echo "Repository name: $(echo $GITHUB_REPOSITORY | cut -d '/' -f 2 | cut -d '.' -f 1)"
+    - name: Print repository value
+      run: echo "Repository: ${{ env.GITHUB_REPOSITORY }}"
