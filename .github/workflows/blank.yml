@@ -212,7 +212,7 @@ jobs:
 
       - name: Stop Crave on Workflow Cancellation
         if: cancelled()
-        run: crave stop --all
+        run: ./crave devspace 'cd ${{ inputs.BASE_PROJECT }}&&crave stop --all'
 
       - name: Display Build URL
         run: |
