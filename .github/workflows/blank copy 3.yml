@@ -11,4 +11,6 @@ jobs:
     - name: Extract Repository Name
       run: |
         REPO_NAME=${{ github.repository#*/ }}
+        REPO_OWNER=${{ github.repository_owner }}
+        echo "Repository Owner: $REPO_OWNER"
         echo "Repository Name: $REPO_NAME"
