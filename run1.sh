@@ -1,4 +1,4 @@
-cd DerpFest13
-repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13 --depth=1
+cd ArrowOS13
+repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1
 chmod +x craverun.sh
 . craverun.sh
