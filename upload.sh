@@ -19,22 +19,57 @@ else
     echo "Already authenticated with GitHub."
 fi
 
-# Determine the tag name
-if [ "$(ls -1 *.zip 2>/dev/null | wc -l)" -gt 0 ]; then
-    # Get the longest zip filename
-    longest_zip=$(ls -1 *.zip | awk '{print length, $0}' | sort -n -r | head -n 1 | cut -d' ' -f2)
-    common_part=$(basename -s .zip "$longest_zip")
+# Get a list of zip files in the current folder
+zip_files=$(ls *.zip 2>/dev/null)
+
+# Check if there are any zip files
+if [ -n "$zip_files" ]; then
+    # Find the zip file with the longest base name (excluding the ".zip" extension)
+    common_part=""
+    max_length=0
+
+    for zip_file in $zip_files; do
+        base_name=$(basename "$zip_file" .zip)
+        length=${#base_name}
+
+        if [ $length -gt $max_length ]; then
+            max_length=$length
+            common_part=$base_name
+        fi
+    done
+
+    echo "Longest Base Named Zip File: ${common_part}"
 else
-    # If no zip files, use the current folder name as the tag
+    # No zip files found, use the folder name
     common_part=$(basename "$(pwd)")
+    echo "No zip files found in the current folder. Using folder name as version: $common_part"
 fi
 
-# If the tag already exists, increment the tag with a number
-count=1
+# Set the version with default if not provided
+version=${custom_version:-"$common_part"}
+
+echo "Selected version: $version"
+
+
+# Set the version with default if not provided
+version=${custom_version:-"$common_part"}
+
+
+last_version=$(gh release list --limit 1 | awk '{print $1}')
+
+# Extract the numeric part of the last version
+last_number=$(echo "$last_version" | awk -F'-' '{print $NF}')
+
+# If there is no previous version, set the counter to 1; otherwise, increment the counter
+counter=$((last_number + 1))
+# Check if the tag already exists
 while gh release view "$common_part" &> /dev/null; do
-    common_part="${common_part}_$count"
-    count=$((count+1))
+    # Tag exists, increment the version number
+    echo "Tag $common_part already exists. Incrementing version number..."
+    version="$common_part-ver$((counter++))"
 done
+
+
 
 # Create the new tag and push it to GitHub
 git tag -a "$common_part" -m "Release $common_part"
@@ -44,13 +79,13 @@ git push origin "$common_part" --force
 declare -a filenames
 
 # Uncomment the following block if you want to upload all .zip and .img files in the current directory
-filenames=(*.zip *.img *.txt *.json)
+filenames=(*.img *.zip)
 
 # Otherwise, ask the user to input the filenames
 # read -p "Enter the filenames (separated by spaces): " -a filenames
 
 # Create the release on GitHub
-if ! gh release create "$common_part" --title "Release $common_part" --notes "Release notes" 2>&1; then
+if ! gh release create "$common_part" --title "Release $common_part" --notes "Release notes"; then
     echo "Error: Failed to create the release."
     exit 1
 fi
