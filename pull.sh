@@ -28,9 +28,14 @@ for file in $(find "$source_folder" -type f \( -name "*.zip" -o -name "*.img" -o
         done
     fi
 
+    if [ "${file##*.}" == "img" ]; then
+        destination_path="$destination_folder/${base_name%.*}_$folder_name.img"
+    fi
+
     echo "Moving: $file to $destination_path"
     mv "$file" "$destination_path"
 done
+
 
 export GH_TOKEN=$(cat ../gh_token.txt)
 gh auth login --with-token $GH_TOKEN
