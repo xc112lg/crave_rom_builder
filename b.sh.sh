@@ -10,5 +10,5 @@ mv h870/* h872/* us997/* ./crave
 export GH_TOKEN=$(cat ../gh_token.txt)
 gh auth login --with-token $GH_TOKEN
 cd crave
-chmod u+x m.sh
-. m.sh
+chmod u+x upload.sh
+. upload.sh
