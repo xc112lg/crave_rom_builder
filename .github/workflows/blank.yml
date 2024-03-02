@@ -47,10 +47,6 @@ on:
         description: 'Command to be used for compiling:'
         required: false
         default: 'm bacon'
-      THE_FORBIDDEN_ONE :
-        description: 'Use this command at caution it might delete you project, nahh who cares'
-        required: false
-        default: ''
       CLEAN_BUILD:
         description: 'Build with a clean workspace? Selecting Yes here will reset the data to its default state removing any of your work'
         required: true
@@ -59,10 +55,10 @@ on:
         options: 
         - 'yes'
         - 'no'
-      # SAY_SOMETHING_NICE :
-      #   description: 'anything you want to say'
-      #   required: false
-      #   default: ''
+      SAY_SOMETHING_NICE :
+        description: 'anything you want to say'
+        required: false
+        default: ''
               
 jobs:
   deploy:
@@ -102,7 +98,6 @@ jobs:
           else
             export CLEAN_FLAG=""
           fi
-      
 
           echo "#!/bin/bash" > run.sh
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run.sh
@@ -113,13 +108,8 @@ jobs:
           echo "cp -f crave_rom_builder/run1.sh run1.sh" >> run.sh
           echo "chmod +x run1.sh" >> run.sh
           echo "cp -f crave_rom_builder/craverun.sh ${{ inputs.BASE_PROJECT }}" >> run.sh
-          # echo 'tmux set-environment bp "$bp"'>> run.sh
-          # echo 'tmux kill-session -t $bp' >> run.sh
-          # echo 'tmux new-session -d -s $bp' >> run.sh
-          # echo 'tmux list-session -t $bp' >> run.sh
           echo "./run1.sh" >> run.sh
           echo 'echo "$(pwd)" > bp.txt'
-          #echo 'tmux send-keys -t $bp C-a C-k './run1.sh'' >> run.sh
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run1.sh
           echo 'gh auth login --with-token $GH_TOKEN' >> run1.sh
           echo "cd ${{ inputs.BASE_PROJECT }}" > run1.sh
@@ -137,26 +127,16 @@ jobs:
           echo "              #Thanks to UV n Team">> craverun.sh
           echo "        #no dual account just to build faster">> craverun.sh
           echo "              #respect the rule">> craverun.sh
-          # echo "#${{ inputs.SAY_SOMETHING_NICE }} ">> craverun.sh
-          echo "THE_FORBIDDEN_ONE: ${{ inputs.THE_FORBIDDEN_ONE }}"
-          echo "PRODUCT_NAME: ${{ inputs.PRODUCT_NAME }}"
-          
-          if [ -n "${{ inputs.THE_FORBIDDEN_ONE }}" ] && [ -n "${{ inputs.PRODUCT_NAME }}" ]; then
-              echo "Both THE_FORBIDDEN_ONE and PRODUCT_NAME have values. Cannot run this command. Exiting."
-              exit 1
-          elif [ -n "${{ inputs.THE_FORBIDDEN_ONE }}" ]; then
-              echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
-              echo "${{ inputs.THE_FORBIDDEN_ONE }}">> craverun.sh
-          else
-              echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
-              echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
-              echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }} .repo/local_manifests">> craverun.sh
-              echo 'repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags'>> craverun.sh
-              echo "source build/envsetup.sh">> craverun.sh
-              echo "m installclean">> craverun.sh
-              echo "lunch ${{ inputs.PRODUCT_NAME }}${{ inputs.BUILD_TYPE }}">> craverun.sh
-              echo "${{ inputs.BUILD_COMMAND }}">> craverun.sh
-          fi
+          echo "#${{ inputs.SAY_SOMETHING_NICE }} ">> craverun.sh
+          echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
+          echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
+          echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }} .repo/local_manifests">> craverun.sh
+          echo 'repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags'>> craverun.sh
+          echo "source build/envsetup.sh">> craverun.sh
+          echo "m installclean">> craverun.sh
+          echo "lunch ${{ inputs.PRODUCT_NAME }}${{ inputs.BUILD_TYPE }}">> craverun.sh
+          echo "${{ inputs.BUILD_COMMAND }}">> craverun.sh
+    
           
           echo '"'>> craverun.sh
           echo  ". a.sh">> craverun.sh
@@ -191,16 +171,10 @@ jobs:
         id: set_url
         run: echo "::set-output name=url::${{ secrets.GH_TOKEN }}@raw.githubusercontent.com/${{ github.repository }}/main/run.sh"
 
-      #- name: Download File
-      #  run: wget -O run.sh "${{ steps.set_url.outputs.url }}"
-
-
       - name: Download and Run get_crave.sh
         run: |
           curl -s https://raw.githubusercontent.com/accupara/crave/master/get_crave.sh | bash -s --
           echo '${{ secrets.CONF }}' > crave.conf
-
-
 
       - name: Run Crave
         run: |
@@ -213,9 +187,3 @@ jobs:
       - name: Stop Crave on Workflow Cancellation
         if: cancelled()
         run: ./crave devspace 'cd ${{ inputs.BASE_PROJECT }}&&crave stop --all'
-
-      - name: Display Build URL
-        run: |
-            echo "Build Sent Check on Foss to verify after a minute"
-            echo "Build URL: [https://foss.crave.io/app/#/build?team=14](https://foss.crave.io/app/#/build?team=14)"
-
