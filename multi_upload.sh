@@ -14,7 +14,7 @@ fi
 # Check if user is already authenticated
 if ! gh auth status &> /dev/null; then
     # User not authenticated, perform login
-    gh auth login
+    gh auth login --with-token $GH_TOKEN
 else
     echo "Already authenticated with GitHub."
 fi

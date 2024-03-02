@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Check if gh command-line tool is installed
