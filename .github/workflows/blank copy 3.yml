@@ -1,6 +1,19 @@
+name: Your Workflow Name
+
+on:
+  push:
+    branches:
+      - main # Adjust the branch name as needed
+
 jobs:
   your_job:
     runs-on: ubuntu-latest
     steps:
-    - name: Echo repository name
-      run: echo "Repository name: $(basename -s .git ${{ github.repository }})"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Echo repository name
+        run: echo "Repository name: $(basename -s .git $GITHUB_REPOSITORY)"
