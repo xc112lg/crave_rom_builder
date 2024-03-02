@@ -37,20 +37,11 @@ while gh release view "$longest_zip_file-ver$version" &> /dev/null; do
     version=$((version + 1))
 done
 
-# Ask for confirmation to delete the existing tag and releases
-if gh release view "$longest_zip_file" &> /dev/null; then
-    read -p "Tag $longest_zip_file already exists. Press Enter to delete it and its releases or Ctrl+C to cancel..."
-    echo "Deleting existing tag and releases for $longest_zip_file..."
-    gh release delete "$longest_zip_file" --yes
-    git tag -d "$longest_zip_file"
-    git push origin --delete "$longest_zip_file"
-    echo "Existing tag and releases deleted."
-fi
-
 # Create the new tag and push it to GitHub
 new_tag="$longest_zip_file-ver$version"
 git tag -a "$new_tag" -m "Release $new_tag"
 git push origin "$new_tag" --force
+
 
 
 # Initialize an array to store the filenames
