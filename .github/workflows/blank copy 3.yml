@@ -3,12 +3,12 @@ name: Extract Repository Name
 on:
   workflow_dispatch:
 
-jobs:
-  extract_repository_name:
-    runs-on: ubuntu-latest
+  jobs:
+    extract_repository_name:
+      runs-on: ubuntu-latest
 
-    steps:
-    - name: Extract Repository Name
-      run: |
-        REPO_NAME=${{ github.repository#*/ }}
-        echo "Repository Name: $REPO_NAME"
+      steps:
+      - name: Extract Repository Name
+        run: |
+          REPO_NAME=${{ github.repository#*/ }}
+          echo "Repository Name: $REPO_NAME"
