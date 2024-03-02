@@ -14,4 +14,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Print repository value
-      run: echo "Repository: ${{ env.GITHUB_REPOSITORY }}"
+      run: 
+           echo "${{ github.repository "}}
+           echo "${{ github.repository "}}
+           echo "${{ github.repository "}}
+           echo "${{ github.repository "}}
+           echo "${{ github.repository "}}
+           echo "${{ github.repository "}}
