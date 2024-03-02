@@ -63,10 +63,10 @@ last_number=$(echo "$last_version" | awk -F'-' '{print $NF}')
 # If there is no previous version, set the counter to 1; otherwise, increment the counter
 counter=$((last_number + 1))
 # Check if the tag already exists
-while gh release view "$common_part" &> /dev/null; do
+while gh release view "$version" &> /dev/null; do
     # Tag exists, increment the version number
-    echo "Tag $common_part already exists. Incrementing version number..."
-    version="$common_part-ver$((counter++))"
+    echo "Tag $version already exists. Incrementing version number..."
+    version="$version-ver$((counter++))"
 done
 
 
