@@ -210,9 +210,9 @@ jobs:
           ./crave -c ./crave.conf devspace || true
           ./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git -b test;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh' || true
 
-           if: ${{ cancelled() }}
-            crave stop --all
-
+      - name: Stop Crave on Workflow Cancellation
+        if: cancelled()
+        run: crave stop --all
 
       - name: Display Build URL
         run: |
