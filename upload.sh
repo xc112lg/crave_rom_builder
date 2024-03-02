@@ -97,14 +97,14 @@ filenames=(*.img *.zip)
 # read -p "Enter the filenames (separated by spaces): " -a filenames
 
 # Create the release on GitHub
-if ! gh release create "$common_part" --title "Release $common_part" --notes "Release notes"; then
+if ! gh release create "$version" --title "Release $version" --notes "Release notes"; then
     echo "Error: Failed to create the release."
     exit 1
 fi
 
 # Upload the files to the release
 for filename in "${filenames[@]}"; do
-    gh release upload "$common_part" "$filename" --clobber
+    gh release upload "$version" "$filename" --clobber
 done
 
 # Display success message
