@@ -113,11 +113,11 @@ jobs:
           echo "cp -f crave_rom_builder/run1.sh run1.sh" >> run.sh
           echo "chmod +x run1.sh" >> run.sh
           echo "cp -f crave_rom_builder/craverun.sh ${{ inputs.BASE_PROJECT }}" >> run.sh
-          echo 'tmux set-environment bp "$bp"'>> run.sh
-          echo 'tmux kill-session -t $bp' >> run.sh
-          echo 'tmux new-session -d -s $bp' >> run.sh
-          echo 'tmux list-session -t $bp' >> run.sh
-          echo 'tmux send-keys -t $bp 'C-a' 'C-k' './run1.sh' 'C-m'' >> run.sh
+          # echo 'tmux set-environment bp "$bp"'>> run.sh
+          # echo 'tmux kill-session -t $bp' >> run.sh
+          # echo 'tmux new-session -d -s $bp' >> run.sh
+          # echo 'tmux list-session -t $bp' >> run.sh
+          echo "./run1.sh" >> run.sh
           echo 'echo "$(pwd)" > bp.txt'
           #echo 'tmux send-keys -t $bp C-a C-k './run1.sh'' >> run.sh
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run1.sh
