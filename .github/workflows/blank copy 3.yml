@@ -1,0 +1,6 @@
+jobs:
+  your_job:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Echo repository name
+      run: echo "Repository name: $(basename -s .git ${{ github.repository }})"
