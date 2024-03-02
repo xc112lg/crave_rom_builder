@@ -87,6 +87,8 @@ jobs:
           esac
           echo "BASE_PROJECT_NAME=$BASE_PROJECT_NAME" >> $GITHUB_ENV
           echo "BASE_PROJECT_VALUE=$BASE_PROJECT_VALUE" >> $GITHUB_ENV
+          REPO_NAME=$(basename "${GITHUB_REPOSITORY}")
+          echo "Repository Name: $REPO_NAME"
 
         
 
