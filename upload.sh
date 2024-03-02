@@ -29,10 +29,10 @@ else
     common_part=$(basename "$(pwd)")
 fi
 
-# If the tag already exists, increment the tag with a decimal number
+# If the tag already exists, increment the tag with a number
 count=1
 while gh release view "$common_part" &> /dev/null; do
-    common_part="${common_part}_$(echo "scale=1; $count/10" | bc | sed 's/\.//')"
+    common_part="${common_part}_$count"
     count=$((count+1))
 done
 
