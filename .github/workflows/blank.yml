@@ -203,7 +203,6 @@ jobs:
 
 
       - name: Run Crave
-        timeout-minutes: 5
         run: |
           echo "tmux detach-client -s ${{ inputs.BASE_PROJECT }}; tmux new-session -s ${{ inputs.BASE_PROJECT }} \; send-keys -t ${{ inputs.BASE_PROJECT }}:0 \"./run.sh\" C-m"
           
