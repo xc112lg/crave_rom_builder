@@ -1,9 +1,6 @@
 name: Extract Repository Name
 
-on:
-  push:
-    branches:
-      - main
+workflow_dispatch:
 
 jobs:
   extract_repository_name:
