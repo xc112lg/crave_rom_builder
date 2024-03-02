@@ -178,11 +178,11 @@ jobs:
 
       - name: Run Crave
         run: |
-          echo "tmux detach-client -s ${{ inputs.BASE_PROJECT }}; tmux new-session -s ${{ inputs.BASE_PROJECT }} \; send-keys -t ${{ inputs.BASE_PROJECT }}:0 \"./run.sh\" C-m"
-          trap 'crave stop --all' SIGTERM
+          echo ${{ inputs.BASE_PROJECT }}
+          echo ${{ github.repository }}
           # Run your commands and continue even if there is an error
-          ./crave -c ./crave.conf devspace || true
-          ./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git -b test;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh' || true
+          #./crave -c ./crave.conf devspace || true
+          #./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git -b test;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh' || true
 
       - name: Stop Crave on Workflow Cancellation
         if: cancelled()
