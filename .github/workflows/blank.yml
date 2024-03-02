@@ -183,7 +183,7 @@ jobs:
       - name: Push changes
         if: env.CHANGES == 'true'
         run: |
-          git push https://github.com/${{ github.repository }}.git HEAD:main
+          git push https://github.com/${{ github.repository }}.git HEAD:test
         env:
           GH_TOKEN: ${{ secrets.PAT }}      
 
