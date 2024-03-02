@@ -32,7 +32,7 @@ fi
 # If the tag already exists, increment the tag with a decimal number
 count=1
 while gh release view "$common_part" &> /dev/null; do
-    common_part="${common_part}_$(echo "scale=1; $count/10" | bc)"
+    common_part="${common_part}_$(echo "scale=1; $count/10" | bc | sed 's/\.//')"
     count=$((count+1))
 done
 
