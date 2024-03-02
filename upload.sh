@@ -55,6 +55,7 @@ echo "Selected version: $version"
 version=${custom_version:-"$common_part"}
 
 
+# Get the latest release version from GitHub
 last_version=$(gh release list --limit 1 | awk '{print $1}')
 
 # Extract the numeric part of the last version
@@ -62,12 +63,17 @@ last_number=$(echo "$last_version" | awk -F'-' '{print $NF}')
 
 # If there is no previous version, set the counter to 1; otherwise, increment the counter
 counter=$((last_number + 1))
+
 # Check if the tag already exists
 while gh release view "$version" &> /dev/null; do
-    # Tag exists, increment the version number
+    # Tag exists, remove the current number and increment the version number
+    version=$(echo "$version" | sed 's/[0-9]*$//')$counter
     echo "Tag $version already exists. Incrementing version number..."
-    version="$version-$((counter++))"
+    counter=$((counter + 1))
 done
+
+# Use the updated version for your release
+echo "Creating release with version $version"
 
 
 
