@@ -131,7 +131,7 @@ jobs:
           echo 'git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git' >> craverun.sh
           echo  "cp -f crave_rom_builder/a.sh a.sh">> craverun.sh
           echo  "chmod +x a.sh">> craverun.sh
-          echo  'basename "$(pwd)"> bp.txt'>> craverun.sh
+          echo  'trap 'crave stop --all' SIGTERM'>> craverun.sh
           echo "crave run --no-patch $CLEAN_FLAG -- \"          #© crave.io Inc. 2017-2024" >> craverun.sh
           #echo '"                #Im not a bot'>> craverun.sh
           echo "              #Thanks to UV n Team">> craverun.sh
