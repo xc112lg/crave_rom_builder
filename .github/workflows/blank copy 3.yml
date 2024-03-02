@@ -1,6 +1,7 @@
 name: Extract Repository Name
 
-workflow_dispatch:
+on:
+  workflow_dispatch:
 
 jobs:
   extract_repository_name:
