@@ -23,69 +23,35 @@ else
 fi
 
 
-# Get a list of zip files in the current folder
-zip_files=$(ls *.zip 2>/dev/null)
+# Get the longest zip file name
+longest_zip_file=$(ls -1 *.zip 2>/dev/null | awk '{print length, $0}' | sort -n -r | head -n 1 | cut -d' ' -f2)
 
-# Check if there are any zip files
-if [ -n "$zip_files" ]; then
-    # Find the zip file with the longest base name (excluding the ".zip" extension)
-    common_part=""
-    max_length=0
-    
-    for zip_file in $zip_files; do
-        base_name=$(basename "$zip_file" .zip)
-        length=${#base_name}
-        
-        if [ $length -gt $max_length ]; then
-            max_length=$length
-            common_part=$base_name
-        fi
-    done
-
-    echo "Longest Base Named Zip File: ${common_part}"
-else
-    echo "No zip files found in the current folder."
+# If no zip files found, use the folder name
+if [ -z "$longest_zip_file" ]; then
+    longest_zip_file=$(basename "$(pwd)")
 fi
-
-
-echo "Common part of filenames: $common_part"
-
-# Set the version with default if not provided
-version1=${custom_version:-"$common_part"}
-
-# Use the version for further processing
-echo "Selected version: $common_part"
-
-
-# Set the version with default if not provided
-version=${custom_version:-"$common_part"}
-
-# If $common_part is empty, use the current folder name
-if [ -z "$common_part" ]; then
-    common_part=$(basename "$(pwd)")
-fi
-
-last_version=$(gh release list --limit 1 | awk '{print $1}')
-
-# Extract the numeric part of the last version
-last_number=$(echo "$last_version" | awk -F'-' '{print $NF}')
-
-# If there is no previous version, set the counter to 1; otherwise, increment the counter
-counter=$((last_number + 1))
 
 # Check if the tag already exists
-while gh release view "$common_part" &> /dev/null; do
-    # Tag exists, increment the version number
-    echo "Tag $common_part already exists. Incrementing version number..."
-    version="$common_part-ver$((counter++))"
+version=1
+while gh release view "$longest_zip_file-ver$version" &> /dev/null; do
+    version=$((version + 1))
 done
 
-
-
+# Ask for confirmation to delete the existing tag and releases
+if gh release view "$longest_zip_file" &> /dev/null; then
+    read -p "Tag $longest_zip_file already exists. Press Enter to delete it and its releases or Ctrl+C to cancel..."
+    echo "Deleting existing tag and releases for $longest_zip_file..."
+    gh release delete "$longest_zip_file" --yes
+    git tag -d "$longest_zip_file"
+    git push origin --delete "$longest_zip_file"
+    echo "Existing tag and releases deleted."
+fi
 
 # Create the new tag and push it to GitHub
-git tag -a "$version" -m "Release $version"
-git push origin "$version" --force
+new_tag="$longest_zip_file-ver$version"
+git tag -a "$new_tag" -m "Release $new_tag"
+git push origin "$new_tag" --force
+
 
 # Initialize an array to store the filenames
 declare -a filenames

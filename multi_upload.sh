@@ -19,11 +19,6 @@ else
     echo "Already authenticated with GitHub."
 fi
 
-# Prompt the user for the version
-read -p "Enter the release tag name (default: crDroidAndroid-14.0-$(date '+%Y%m%d')): " custom_version
-
-# Set the version with default if not provided
-version=${custom_version:-"crDroidAndroid-14.0-$(date '+%Y%m%d')"}
 
 # Check if the tag already exists
 if gh release view "$common_part" &> /dev/null; then
