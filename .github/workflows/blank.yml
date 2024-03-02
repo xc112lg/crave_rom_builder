@@ -180,7 +180,7 @@ jobs:
         run: |
           echo ${{ inputs.BASE_PROJECT }}
           echo ${{ github.workflow }}
-          echo ${{ github.workspace }}
+          echo ${{ github.server_url }}
           echo ${{ github.repository_owner }}
           # Run your commands and continue even if there is an error
           #./crave -c ./crave.conf devspace || true
