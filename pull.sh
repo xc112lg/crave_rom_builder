@@ -8,7 +8,7 @@ crave pull out/target/product/*/*.zip out/target/product/*/recovery.img out/targ
 source_folder="."
 destination_folder="crave_rom_builder"
 
-for file in $(find "$source_folder" -type f \( -name "*.zip" -o -name "*.img" -o -name "*.txt" -o -name "*.json" \) | grep -v "$destination_folder"); do
+for file in $(find "$source_folder" -type f \( -name "*.zip" -o -name "*.img" -o -name "*.txt" -o -name "*.json" \) | grep -v "$destination_folder" | grep -v "/out/"); do
     [ -e "$file" ] || continue
 
     base_name=$(basename "$file")
