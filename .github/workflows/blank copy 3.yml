@@ -16,5 +16,4 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Echo repository name
-      run: echo "Repository name: $(basename -s .git ${{ runner.workspace }}/$(basename $GITHUB_REPOSITORY))"
-    
+        run: echo "Repository name: $(echo $GITHUB_REPOSITORY | cut -d '/' -f 2 | cut -d '.' -f 1)"
