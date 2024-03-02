@@ -84,8 +84,8 @@ done
 
 
 # Create the new tag and push it to GitHub
-git tag -a "$common_part" -m "Release $common_part"
-git push origin "$common_part" --force
+git tag -a "$version" -m "Release $version"
+git push origin "$version" --force
 
 # Initialize an array to store the filenames
 declare -a filenames
