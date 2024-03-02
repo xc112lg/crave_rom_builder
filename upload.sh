@@ -60,6 +60,10 @@ echo "Selected version: $common_part"
 # Set the version with default if not provided
 version=${custom_version:-"$common_part"}
 
+# If $common_part is empty, use the current folder name
+if [ -z "$common_part" ]; then
+    common_part=$(basename "$(pwd)")
+fi
 
 last_version=$(gh release list --limit 1 | awk '{print $1}')
 
@@ -68,12 +72,14 @@ last_number=$(echo "$last_version" | awk -F'-' '{print $NF}')
 
 # If there is no previous version, set the counter to 1; otherwise, increment the counter
 counter=$((last_number + 1))
+
 # Check if the tag already exists
 while gh release view "$common_part" &> /dev/null; do
     # Tag exists, increment the version number
     echo "Tag $common_part already exists. Incrementing version number..."
     version="$common_part-ver$((counter++))"
 done
+
 
 
 
