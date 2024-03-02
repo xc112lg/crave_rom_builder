@@ -66,7 +66,7 @@ counter=$((last_number + 1))
 while gh release view "$version" &> /dev/null; do
     # Tag exists, increment the version number
     echo "Tag $version already exists. Incrementing version number..."
-    version="$version-ver$((counter++))"
+    version="$version-$((counter++))"
 done
 
 
