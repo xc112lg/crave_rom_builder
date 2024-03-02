@@ -183,8 +183,6 @@ jobs:
           echo ${{ github.repositoryUrl }}
           echo ${{ github.repository_owner }}
           REPO_NAME=${{ github.repository#*/ }}
-          REPO_OWNER=${{ github.repository_owner }}
-          echo "Repository Owner: $REPO_OWNER"
           # Run your commands and continue even if there is an error
           #./crave -c ./crave.conf devspace || true
           #./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git -b test;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh' || true
