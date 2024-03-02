@@ -22,7 +22,6 @@ else
     echo "Already authenticated with GitHub."
 fi
 
-
 # Get the longest zip file name
 longest_zip_file=$(ls -1 *.zip 2>/dev/null | awk '{print length, $0}' | sort -n -r | head -n 1 | cut -d' ' -f2)
 
@@ -36,6 +35,11 @@ version=1
 while gh release view "$longest_zip_file-ver$version" &> /dev/null; do
     version=$((version + 1))
 done
+
+# If the original tag exists, increment the version
+if gh release view "$longest_zip_file" &> /dev/null; then
+    version=$((version + 1))
+fi
 
 # Create the new tag and push it to GitHub
 new_tag="$longest_zip_file-ver$version"
