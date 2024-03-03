@@ -52,7 +52,7 @@ foss.crave.io account
   If you need to delete folder or do git clone
    ```bash 
     rf device/lge/msm8996-common;git clone https://github.com/xc112lg/android_device_lge_msm8996-common -b evo4 device/lge/msm8996-common
-    ```/
+    ```\
 ### Clean Build
   - Uses fresh Base Project sources without any of our changes(use only for testing/debugging)
   - Selecting Yes here will reset the data to its default state removing any of your work, Ask in discord if you dont understand this option, If i see builders spamming yes on this option i will cancel their build
