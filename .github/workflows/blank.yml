@@ -56,7 +56,7 @@ on:
         - 'yes'
         - 'no'
         EXTRA_COMMAND :
-        description: 'if you need to delete or clone after reposync: rf device/lge/msm8996-common;git clone https://github.com/xc112lg/android_device_lge_msm8996-common -b evo4 device/lge/msm8996-common'
+        description: "if you need to delete or clone after reposync: rf device/lge/msm8996-common;git clone https://github.com/xc112lg/android_device_lge_msm8996-common -b evo4 device/lge/msm8996-common"
         required: false
         default: ''
               
