@@ -131,7 +131,7 @@ jobs:
           echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
           echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }} .repo/local_manifests">> craverun.sh
           echo 'repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags'>> craverun.sh
-          echo "#${{ inputs.EXTRA_COMMAND }} ">> craverun.sh
+          echo "${{ inputs.EXTRA_COMMAND }} ">> craverun.sh
           echo "source build/envsetup.sh">> craverun.sh
           echo "m installclean">> craverun.sh
           echo "lunch ${{ inputs.PRODUCT_NAME }}${{ inputs.BUILD_TYPE }}">> craverun.sh
