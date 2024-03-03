@@ -11,12 +11,16 @@ foss.crave.io account
 ## Setup Instructions
 - Download crave.conf from API Keys of foss.crave.io dashboard
 - Fork this repo
-- "https://github.com/${{ github.repository }}settings/secrets/actions"
+- Create a Personal access tokens (classic) Check all options except with the delete options
+- ![Alt text](image-1.png)
+- after doing that you will get like ![ ](image-2.png) save it for later
 - Go to (repo) Settings -> Security -> Secrets and Variables -> Actions
-- copy whole code from crave.conf
+- ![Alt text](image-3.png)
+- 
   ![image](https://github.com/sounddrill31/crave_aosp_builder/assets/84176052/147255e1-39de-4e0a-a48e-fce81faf3162)
-- Create a Repository Secret called CONF, with username from crave.conf
-- Create a Repository Secret called GH_TOKEN, with authentication token from crave.conf
+- Create a Repository Secret called CONF, copy whole code from crave.conf and paste it
+- ![Alt text](image-4.png)
+- Create a Repository Secret called GH_TOKEN, now paste the code you get in Personal access tokens (classic)
 
 ## Inputs Explanation
 ### Base Project
