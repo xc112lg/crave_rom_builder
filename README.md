@@ -11,11 +11,11 @@ foss.crave.io account
 ## Setup Instructions
 - Download crave.conf from API Keys of foss.crave.io dashboard
 - Fork this repo
-- Create a Personal access tokens (classic) https://github.com/settings/tokens Check all options except with the delete options
+- Create a Personal access tokens (classic) https://github.com/settings/tokens Check all options except with the delete options, its your choice how to long you want the code to work, you can update it afterward on GH_TOKEN everytime it expire or you can choose no expiration
 ![Alt text](image-1.png)
 - after doing that you will get like ![ ](image-2.png) 
 - save it for later
-- Go to (repo) Settings -> Security -> Secrets and Variables -> Actions
+- Now Go to (repo) Settings -> Security -> Secrets and Variables -> Actions
 - ![Alt text](image-3.png)
 ![Alt text](image-5.png)
 - Create a Repository Secret called CONF, copy whole code from crave.conf and paste it
