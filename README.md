@@ -1,7 +1,7 @@
 # crave_rom_builder
 what's the diffirent to its predecessor?
-This is a workaround so it can work also logging in with devspace and check your build in there.
-Workfolder will be the same as in the base projects i use
+This is a workaround so it can work also by logging in with devspace and check your build in there.
+Workfolder will be the same as in the base projects i use in workflow
 ![Alt text](image.png)
 
 
