@@ -17,7 +17,7 @@ foss.crave.io account
 - save it for later
 - Go to (repo) Settings -> Security -> Secrets and Variables -> Actions
 - ![Alt text](image-3.png)
-  ![image](https://github.com/sounddrill31/crave_aosp_builder/assets/84176052/147255e1-39de-4e0a-a48e-fce81faf3162)
+![Alt text](image-5.png)
 - Create a Repository Secret called CONF, copy whole code from crave.conf and paste it
 - ![Alt text](image-4.png)
 - Create a Repository Secret called GH_TOKEN, now paste the code you get in Personal access tokens (classic)
