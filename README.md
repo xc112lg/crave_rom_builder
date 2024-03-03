@@ -4,7 +4,8 @@ This is a workaround so it can work also by logging in with devspace and check y
 Workfolder will be the same as in the base projects i use in workflow
 ![Alt text](image.png)
 
-
+## ATTENTION
+  Editing my code that make loopholes in devspace is prohibited, I will only allowed changes in input default, and how you want to upload your files (upload.sh)
 ## Prerequisites 
 foss.crave.io account
 
