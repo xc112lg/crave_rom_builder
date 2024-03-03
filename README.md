@@ -11,7 +11,7 @@ foss.crave.io account
 ## Setup Instructions
 - Download crave.conf from API Keys of foss.crave.io dashboard
 - Fork this repo
-- Create a Personal access tokens (classic) Check all options except with the delete options
+- Create a Personal access tokens (classic) https://github.com/settings/tokens Check all options except with the delete options
 ![Alt text](image-1.png)
 - after doing that you will get like ![ ](image-2.png) 
 - save it for later
