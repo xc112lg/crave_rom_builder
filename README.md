@@ -11,7 +11,7 @@ foss.crave.io account
 ## Setup Instructions
 - Download crave.conf from API Keys of foss.crave.io dashboard
 - Fork this repo
-- https://github.com/${{ github.repository }}settings/secrets/actions
+- "https://github.com/${{ github.repository }}settings/secrets/actions"
 - Go to (repo) Settings -> Security -> Secrets and Variables -> Actions
 - copy whole code from crave.conf
   ![image](https://github.com/sounddrill31/crave_aosp_builder/assets/84176052/147255e1-39de-4e0a-a48e-fce81faf3162)
