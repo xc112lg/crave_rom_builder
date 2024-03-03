@@ -69,3 +69,4 @@ foss.crave.io account
   - [azwhikaru's Action-TWRP-Builder](https://github.com/azwhikaru/Action-TWRP-Builder) Which I used as reference
   - [Other contributors](https://github.com/xc112lg/crave_rom_builder/graphs/contributors)
   - [The crave team](https://github.com/accupara) for the build servers and helping us out when we get stuck
+  - And OpenAi for help whomever it steals the code without crediting XD
