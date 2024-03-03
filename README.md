@@ -49,7 +49,7 @@ foss.crave.io account
 
 - eng:  Development configuration with faster build time; most suited for day-to-day development
 ### Extra Command
-     - If you need to delete folder or do git clone
+     If you need to delete folder or do git clone
     -  rf device/lge/msm8996-common;git clone https://github.com/xc112lg/android_device_lge_msm8996-common -b evo4 device/lge/msm8996-common
 ### Clean Build
   - Uses fresh Base Project sources without any of our changes(use only for testing/debugging)
