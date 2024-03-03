@@ -5,7 +5,7 @@ Workfolder will be the same as in the base projects i use in workflow
 ![Alt text](image.png)
 
 ## ATTENTION
-  Editing my code that make loopholes in devspace is prohibited, I will only allowed changes in input default, and how you want to upload your files (upload.sh)
+  Editing my code that make loopholes in devspace is prohibited, I will only allowed changes in input default,what to pull in the inyour build like .img .zip .json (pull.sh) and how you want to upload your files (upload.sh) default upload is in github repo where this action is running
 ## Prerequisites 
 foss.crave.io account
 
