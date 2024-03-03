@@ -20,7 +20,7 @@ foss.crave.io account
 ![Alt text](image-5.png)
 - Create a Repository Secret called CONF, copy whole code from crave.conf and paste it
 - ![Alt text](image-4.png)
-- Create a Repository Secret called GH_TOKEN, now paste the code you get in Personal access tokens (classic)
+- Create a Repository Secret called GH_TOKEN, now paste the code you get in Personal access tokens (classic) you save earlier
 
 ## Inputs Explanation
 ### Base Project
