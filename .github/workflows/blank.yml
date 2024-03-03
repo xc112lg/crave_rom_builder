@@ -47,6 +47,10 @@ on:
         description: 'Command to be used for compiling:'
         required: false
         default: 'm bacon'
+      EXTRA_COMMAND :
+        description: "if you need to delete or clone after reposync: rf device/lge/msm8996-common;git clone https://github.com/xc112lg/android_device_lge_msm8996-common -b evo4 device/lge/msm8996-common"
+        required: false
+        default: ''
       CLEAN_BUILD:
         description: 'Build with a clean workspace? Selecting Yes here will reset the data to its default state removing any of your work'
         required: true
@@ -55,10 +59,6 @@ on:
         options: 
         - 'yes'
         - 'no'
-      EXTRA_COMMAND :
-        description: "if you need to delete or clone after reposync: rf device/lge/msm8996-common;git clone https://github.com/xc112lg/android_device_lge_msm8996-common -b evo4 device/lge/msm8996-common"
-        required: false
-        default: ''
               
 jobs:
   deploy:
