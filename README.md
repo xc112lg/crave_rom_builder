@@ -14,16 +14,16 @@ foss.crave.io account
 - Download crave.conf from API Keys of foss.crave.io dashboard
 - Fork this repo
 - Create a Personal access tokens (classic) https://github.com/settings/tokens Check all options except with the delete options, its your choice how to long you want the code to work, you can update it afterward on GH_TOKEN everytime it expire or you can choose no expiration
-![Alt text](image-1.png)
-- after doing that you will get like ![ ](image-2.png) 
+![image](https://github.com/xc112lg/crave_rom_builder/assets/152837944/251bc3d7-18bf-4412-abec-132aeefc90c5)
+- after doing that you will get like ![image](https://github.com/xc112lg/crave_rom_builder/assets/152837944/087e06fb-950f-42f4-8500-c0113c10e4cd)
 - save it for later
 - Now Go to (repo) Settings -> Security -> Secrets and Variables -> Actions
-- ![Alt text](image-3.png)
-![Alt text](image-5.png)
+![image](https://github.com/xc112lg/crave_rom_builder/assets/152837944/c81649a8-e137-4bc0-ad00-597d2e8889ca)
+![image](https://github.com/xc112lg/crave_rom_builder/assets/152837944/b379c8a1-8176-4052-b727-3f58e4949fbb)
 - Create a Repository Secret called CONF, copy whole code from crave.conf and paste it
-- ![Alt text](image-4.png)
+![image](https://github.com/xc112lg/crave_rom_builder/assets/152837944/92280323-c448-4e79-bac3-12e4fbb94f9e)
 - Create a Repository Secret called GH_TOKEN, now paste the code you get in Personal access tokens (classic) you save earlier
-
+![image](https://github.com/xc112lg/crave_rom_builder/assets/152837944/087e06fb-950f-42f4-8500-c0113c10e4cd)
 ## Inputs Explanation
 ### Base Project
     - These are the projects everyone can build, with a foss.crave.io account
