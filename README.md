@@ -72,4 +72,4 @@ foss.crave.io account
   - [Other contributors](https://github.com/xc112lg/crave_rom_builder/graphs/contributors)
   - [The crave team](https://github.com/accupara) for the build servers and helping us out when we get stuck
   - And OpenAi for help whomever it steals the code without crediting them XD
-  - Work of xc112lg (re H872) discord / xc112@xda
+  - Work of xc112lg (re H872) discord https://discord.gg/7XUGszkVHz / xc112@xda
