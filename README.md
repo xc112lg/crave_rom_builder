@@ -67,7 +67,8 @@ foss.crave.io account
   - This Repo is a spiritual successor to azwhikaru's Action-TWRP-Builder
 ## Credits!
   - [AntoninoScordino](https://github.com/AntoninoScordino) [sounddrill31](https://github.com/sounddrill31) Cause im too lazy to fucking make my own readme
-  - [azwhikaru's Action-TWRP-Builder](https://github.com/azwhikaru/Action-TWRP-Builder) Which I used as reference
+  - [azwhikaru's Action-TWRP-Builder](https://github.com/azwhikaru/Action-TWRP-Builder) Which sounddrill31 use as reference
   - [Other contributors](https://github.com/xc112lg/crave_rom_builder/graphs/contributors)
   - [The crave team](https://github.com/accupara) for the build servers and helping us out when we get stuck
-  - And OpenAi for help whomever it steals the code without crediting XD
+  - And OpenAi for help whomever it steals the code without crediting them XD
+  - Work of xc112lg (re H872) discord / xc112@xda
