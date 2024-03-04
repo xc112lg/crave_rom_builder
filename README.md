@@ -2,7 +2,8 @@
 what's the diffirent to its predecessor?
 This is a workaround so it can work also by logging in with devspace and check your build in there.
 Workfolder will be the same as in the base projects i use in workflow
-![Alt text](image.png)
+![image](https://github.com/xc112lg/crave_rom_builder/assets/152837944/22442181-6d98-442c-8526-079f915adf8f)
+
 
 ## ATTENTION
   Editing my code that make loopholes in devspace is prohibited, I will only allow changes in input default,what to pull in the in your build like .img .zip .json (pull.sh) and how you want to upload your files (upload.sh) default upload is in github repo release page where this action is running (file for upload is .zip and the recovery image you can adjust the pull.sh if you want to pull boot.img and other files)
