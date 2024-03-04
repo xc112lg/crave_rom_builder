@@ -58,7 +58,7 @@ foss.crave.io account
   - Uses fresh Base Project sources without any of our changes(use only for testing/debugging)
   - Selecting Yes here will reset the data to its default state removing any of your work, Ask in discord if you dont understand this option, If i see builders spamming yes on this option i will cancel their build
 ## TO MAKE THINGS EASIER IN BUILDING
-  - Since there is 4 base projects that can be use, i suggest only maintain 4 diffirent roms to work with
+  - Since there is 4 base projects that can be use, i suggest only maintain 4 diffirent roms to work with only, my script is prebuilt to work on any project if you every build any roms, eg. crdroid bananadroid evox
 
 ## Known Issues
   - You Tell Me :)
