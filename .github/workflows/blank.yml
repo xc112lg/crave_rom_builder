@@ -108,6 +108,12 @@ jobs:
             export CLEAN_FLAG=""
           fi
 
+          if [ -n "${{ inputs.BUILD_DIFFERENT_ROM }}" ]; then
+            export deleteprep="prebuilts/clang/host/linux-x86 prebuilts/rust"
+          else
+            export deleteprep=""
+          fi
+
           echo "#!/bin/bash" > run.sh
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run.sh
           echo 'gh auth login --with-token $GH_TOKEN' >> run.sh
@@ -135,7 +141,7 @@ jobs:
           echo "        #no dual account just to build faster">> craverun.sh
           echo "              #respect the rule">> craverun.sh
           echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
-          echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
+          echo "rm -rf .repo/local_manifests $deleteprep ${{ inputs.REMOVALS }}">> craverun.sh
           echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }} .repo/local_manifests">> craverun.sh
           echo 'repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags'>> craverun.sh
           echo "${{ inputs.EXTRA_COMMAND }} ">> craverun.sh
