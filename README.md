@@ -67,7 +67,7 @@ foss.crave.io account
   - For scheduled builds, it's better to remove the workflow dispatch stuff.
   - This Repo is a spiritual successor to azwhikaru's Action-TWRP-Builder
 ## Credits!
-  - [AntoninoScordino](https://github.com/AntoninoScordino) [sounddrill31](https://github.com/sounddrill31) Cause im too lazy to fucking make my own readme
+  - [AntoninoScordino](https://github.com/AntoninoScordino) [sounddrill31](https://github.com/sounddrill31) Cause im too lazy to make my own readme and their idea how to build the workflow
   - [azwhikaru's Action-TWRP-Builder](https://github.com/azwhikaru/Action-TWRP-Builder) Which sounddrill31 use as reference
   - [Other contributors](https://github.com/xc112lg/crave_rom_builder/graphs/contributors)
   - [The crave team](https://github.com/accupara) for the build servers and helping us out when we get stuck
