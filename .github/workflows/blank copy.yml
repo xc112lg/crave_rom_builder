@@ -1,43 +1,202 @@
-name: tag cleaner
+#Credits to
+  #UV n Team
+  #sounddrill31
+  #AntoninoScordino
+#work by xc112lg / xc112@xda
+ 
+  
+name: Start job for building through Crave.
 
 on:
+  #push:
+   # branches:
+    #  - main 
   workflow_dispatch:
-
+    inputs:
+      BASE_PROJECT:
+        description: 'Choose a base project:'
+        required: true
+        default: 'ArrowOS13'
+        type: choice
+        options:
+          - 'ArrowOS13'
+          - 'DerpFest13'
+          - 'LineageOS20'
+          - 'LineageOS21'
+      BUILD_DIFFERENT_ROM:
+        description: "Command to initialize a different 'repo' project: repo init -u https://github.com/crdroidandroid/android.git -b 14.0 --git-lfs"
+        required: false
+      REMOVALS:
+        description: "Folders to be removed before syncing:"
+        required: false
+      LOCAL_MANIFEST:
+        description: "Personal local manifest [repository or raw]:"
+        required: true
+        default: 'https://github.com/jayz1212/local_manifests'
+      LOCAL_MANIFEST_BRANCH:
+        description: "Personal local manifest's branch:"
+        required: false
+        default: 'main'
+      PRODUCT_NAME:
+        description: "Product to build:"
+        required: false
+        default: "lineage_h872"
+      BUILD_TYPE:
+        description: 'Type of build:'
+        required: false
+        default: '-userdebug'
+        type: choice
+        options: 
+        - '-eng'
+        - '-userdebug'
+        - '-user' 
+      BUILD_COMMAND:
+        description: 'Command to be used for compiling:'
+        required: false
+        default: 'm bacon'
+      EXTRA_COMMAND :
+        description: "EXTRA_COMMAND:if you need to delete or clone after reposync: rf device/lge/msm8996-common;git clone https://github.com/xc112lg/android_device_lge_msm8996-common -b evo4 device/lge/msm8996-common"
+        required: false
+        default: ''
+      CLEAN_BUILD:
+        description: 'Build with a clean workspace? Selecting Yes here will reset the data to its default state removing any of your work, Ask in discord if you dont understand this option, If i see builders spamming yes on this option i will cancel their build'
+        required: true
+        default: 'no'
+        type: choice
+        options: 
+        - 'yes'
+        - 'no'
+              
 jobs:
-  delete_tags_and_releases:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-    - name: Delete Git Tags
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: |
-        # Delete all Git tags
-        tags=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/git/refs/tags" | jq -r '.[].ref' | awk -F'/tags/' '{print $2}')
-        for tag in $tags; do
-          git push origin --delete $tag
-          curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/git/refs/tags/$tag"
-        done
+      - name: Set up Git
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git clean -fdX
 
-    - name: Delete Releases
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: |
-        # Delete GitHub releases
-        releases=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/releases" | jq -r '.[].id')
-        for release_id in $releases; do
-          # Delete associated assets of the release
-          assets=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/releases/$release_id/assets" | jq -r '.[].id')
-          for asset_id in $assets; do
-            curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/releases/assets/$asset_id"
-          done
-          
-          # Delete the release itself
-          curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/${{ github.repository }}/releases/$release_id"
-        done
+
+      - name: Set up Environment
+        run: |
+          BASE_PROJECT_NAME="${{ inputs.BASE_PROJECT }}"
+          case $BASE_PROJECT_NAME in
+            'ArrowOS13') BASE_PROJECT_VALUE='repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1' ;;
+            'DerpFest13') BASE_PROJECT_VALUE='repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13 --depth=1' ;;
+            'LineageOS20') BASE_PROJECT_VALUE='repo init -u https://github.com/accupara/los20.git -b lineage-20.0 --git-lfs --depth=1' ;;
+            'LineageOS21') BASE_PROJECT_VALUE='repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs --depth=1' ;;
+            *) BASE_PROJECT_VALUE='default-command' ;;  # Provide a default command for unknown options
+          esac
+          echo "BASE_PROJECT_NAME=$BASE_PROJECT_NAME" >> $GITHUB_ENV
+          echo "BASE_PROJECT_VALUE=$BASE_PROJECT_VALUE" >> $GITHUB_ENV
+          REPO_NAME=$(basename "${GITHUB_REPOSITORY}")
+          echo "Repository Name: $REPO_NAME"
+
+        
+
+      - name: Edit run.sh
+        run: |
+
+          if [ "${{ inputs.CLEAN_BUILD }}" == "yes" ]; then
+            export CLEAN_FLAG="--clean"
+          else
+            export CLEAN_FLAG=""
+          fi
+
+          if [ -n "${{ inputs.BUILD_DIFFERENT_ROM }}" ]; then
+            export deleteprep="prebuilts/clang/host/linux-x86 prebuilts/rust"
+          else
+            export deleteprep=""
+          fi
+
+          echo "#!/bin/bash" > run.sh
+          echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run.sh
+          echo 'gh auth login --with-token $GH_TOKEN' >> run.sh
+          echo "gh auth status" >> run.sh
+          echo "mkdir -p ${{ inputs.BASE_PROJECT }}" >> run.sh
+          echo 'bp=$(cat bp.txt)' >> run.sh
+          echo "cp -f crave_rom_builder/run1.sh run1.sh" >> run.sh
+          echo "chmod +x run1.sh" >> run.sh
+          echo "cp -f crave_rom_builder/craverun.sh ${{ inputs.BASE_PROJECT }}" >> run.sh
+          echo "./run1.sh" >> run.sh
+          echo 'echo "$(pwd)" > bp.txt'
+          echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run1.sh
+          echo 'gh auth login --with-token $GH_TOKEN' >> run1.sh
+          echo "cd ${{ inputs.BASE_PROJECT }}" > run1.sh
+          echo "${BASE_PROJECT_VALUE}" >> run1.sh
+          echo "chmod +x craverun.sh" >> run1.sh
+          echo ". craverun.sh" >> run1.sh
+          echo "#!/bin/bash" > craverun.sh
+          echo "rm -rf crave_rom_builder" >> craverun.sh
+          echo 'git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git' >> craverun.sh
+          echo  "cp -f crave_rom_builder/pull.sh pull.sh">> craverun.sh
+          echo  "chmod +x pull.sh">> craverun.sh
+          echo "crave run --no-patch $CLEAN_FLAG -- \"          #© crave.io Inc. 2017-2024" >> craverun.sh
+          echo "              #Thanks to UV n Team">> craverun.sh
+          echo "        #no dual account just to build faster">> craverun.sh
+          echo "              #respect the rule">> craverun.sh
+          echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
+          echo "rm -rf .repo/local_manifests $deleteprep ${{ inputs.REMOVALS }}">> craverun.sh
+          echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }} .repo/local_manifests">> craverun.sh
+          echo 'repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags'>> craverun.sh
+          echo "${{ inputs.EXTRA_COMMAND }} ">> craverun.sh
+          echo "source build/envsetup.sh">> craverun.sh
+          echo "m installclean">> craverun.sh
+          echo "lunch ${{ inputs.PRODUCT_NAME }}${{ inputs.BUILD_TYPE }}">> craverun.sh
+          echo "${{ inputs.BUILD_COMMAND }}">> craverun.sh
+          echo '"'>> craverun.sh
+          echo  ". pull.sh">> craverun.sh
+
+      
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          changes=$(git diff --name-only)
+          if [ -z "$changes" ]; then
+            echo "CHANGES=false" >> $GITHUB_ENV
+          else
+            echo "CHANGES=true" >> $GITHUB_ENV
+          fi
+
+      - name: Commit changes
+        if: env.CHANGES == 'true'
+        run: |
+          git add .
+          git commit -m "Update run.sh with commands"
+          git status
+
+      - name: Push changes
+        if: env.CHANGES == 'true'
+        run: |
+          git push https://github.com/${{ github.repository }}.git HEAD:main
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}      
+
+      - name: Set File URL
+        id: set_url
+        run: echo "::set-output name=url::${{ secrets.GH_TOKEN }}@raw.githubusercontent.com/${{ github.repository }}/main/run.sh"
+
+      - name: Download and Run get_crave.sh
+        run: |
+          curl -s https://raw.githubusercontent.com/accupara/crave/master/get_crave.sh | bash -s --
+          echo '${{ secrets.CONF }}' > crave.conf
+
+      - name: Run Crave
+        run: |
+          echo ${{ inputs.BASE_PROJECT }}
+          echo ${{ github.workflow }}
+          REPO_NAME=$(basename "${GITHUB_REPOSITORY}")
+          echo "Repository Name: $REPO_NAME"
+          #  Run your commands and continue even if there is an error
+          ./crave -c ./crave.conf devspace || true
+          ./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh' || true
+
+      - name: Stop Crave on Workflow Cancellation
+        if: cancelled()
+        run: ./crave devspace 'cd ${{ inputs.BASE_PROJECT }}&&crave stop --all'
