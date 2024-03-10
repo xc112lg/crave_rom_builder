@@ -126,7 +126,7 @@ jobs:
           echo "./run1.sh" >> run.sh
           echo 'echo "$(pwd)" > bp.txt'
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run1.sh
-          echo 'gh auth login --with-token $GH_TOKEN' >> run1.sh
+          # echo 'gh auth login --with-token $GH_TOKEN' >> run1.sh
           echo "cd ${{ inputs.BASE_PROJECT }}" > run1.sh
           echo "${BASE_PROJECT_VALUE}" >> run1.sh
           echo "chmod +x craverun.sh" >> run1.sh
