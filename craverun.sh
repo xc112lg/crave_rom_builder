@@ -7,7 +7,7 @@ crave run --no-patch  -- "          #© crave.io Inc. 2017-2024
               #Thanks to UV n Team
         #no dual account just to build faster
               #respect the rule
-repo init -u https://github.com/crdroidandroid/android.git -b 14.0 --git-lfs
+
 rm -rf .repo/local_manifests 
 git clone https://github.com/xc112lg/local_manifests -b main .repo/local_manifests
 repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags
