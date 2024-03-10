@@ -66,9 +66,9 @@ on:
         options: 
         - 'yes'
         - 'no'
-              
+          
 jobs:
-  deploy:
+  run-devspace-and-tmux:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -209,9 +209,7 @@ jobs:
                 echo "Runner Started"
               fi "
   test:
-    timeout-minutes: 720      
-    name: Build using foss.crave.io
-    needs: Selfhosted 
+    needs: run-devspace-and-tmux  # Correct the job name here
     runs-on: self-hosted
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
