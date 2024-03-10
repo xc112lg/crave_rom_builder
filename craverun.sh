@@ -11,7 +11,7 @@ repo init -u https://github.com/crdroidandroid/android.git -b 14.0 --git-lfs
 rm -rf .repo/local_manifests 
 git clone https://github.com/xc112lg/local_manifests -b main .repo/local_manifests
 repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags
-cd kernel/lge/msm8996;sleep 1 && git fetch https://github.com/xc112lg/msm8996_lge_kernel.git patch-1;sleep 1 && git cherry-pick 581d1240a1ac99ebbf172ec95b8d7f4f40ca4d21;cd ../../../ 
+ 
 source build/envsetup.sh
 m installclean
 lunch lineage_h872-userdebug
