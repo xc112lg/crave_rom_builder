@@ -12,12 +12,12 @@ else
 fi
 
 # Check if user is already authenticated
-if ! gh auth status &> /dev/null; then
-    # User not authenticated, perform login
-    gh auth login --with-token $GH_TOKEN
-else
-    echo "Already authenticated with GitHub."
-fi
+# if ! gh auth status &> /dev/null; then
+#     # User not authenticated, perform login
+#     gh auth login --with-token $GH_TOKEN
+# else
+#     echo "Already authenticated with GitHub."
+# fi
 
 # Get a list of zip files in the current folder
 zip_files=$(ls *.zip 2>/dev/null)
