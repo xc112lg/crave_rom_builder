@@ -9,10 +9,10 @@ source_folder="."
 destination_folder="crave_rom_builder"
 
 # Check if there are no .zip or .img files in the source folder or its subdirectories
-if [ -z "$(find "$source_folder" -type f \( -name "*.zip" -o -name "*.img" \))" ]; then
-    echo "No .zip or .img files found in $source_folder or its subdirectories. Exiting."
-    exit 1
-fi
+# if [ -z "$(find "$source_folder" -type f \( -name "*.zip" -o -name "*.img" \))" ]; then
+#     echo "No .zip or .img files found in $source_folder or its subdirectories. Exiting."
+#     exit 1
+# fi
 
 
 for file in $(find "$source_folder" -type f \( -name "*.zip" -o -name "*.img" -o -name "*.txt" -o -name "*.json" \) | grep -v "$destination_folder" | grep -v "/out/"); do
