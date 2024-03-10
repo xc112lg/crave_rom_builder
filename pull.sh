@@ -44,7 +44,6 @@ for file in $(find "$source_folder" -type f \( -name "*.zip" -o -name "*.img" -o
 done
 
 
-export GH_TOKEN=$(cat ../gh_token.txt)
 #gh auth login --with-token $GH_TOKEN
 cd crave_rom_builder
 chmod u+x upload.sh
