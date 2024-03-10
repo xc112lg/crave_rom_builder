@@ -211,7 +211,7 @@ jobs:
   test:
     timeout-minutes: 720      
     name: Build using foss.crave.io
-    needs: run-devspace-and-tmux    
+    needs: Selfhosted 
     runs-on: self-hosted
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
