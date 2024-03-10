@@ -148,8 +148,8 @@ jobs:
           echo 'repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags'>> craverun.sh
           echo "${{ inputs.EXTRA_COMMAND }} ">> craverun.sh
           echo "source build/envsetup.sh">> craverun.sh
-          echo "m installclean">> craverun.sh
           echo "lunch ${{ inputs.PRODUCT_NAME }}${{ inputs.BUILD_TYPE }}">> craverun.sh
+          echo "m installclean">> craverun.sh
           echo "${{ inputs.BUILD_COMMAND }}">> craverun.sh
           echo '"'>> craverun.sh
           echo  ". pull.sh">> craverun.sh
