@@ -16,7 +16,7 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'ArrowOS13'
+        default: 'ArrowOS13-'
         type: choice
         options:
           - 'ArrowOS13-'
