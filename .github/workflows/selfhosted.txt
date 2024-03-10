@@ -5,7 +5,7 @@
 #work by xc112lg / xc112@xda
  
   
-name: Selfhosted Crave Rom Builder test1
+name: DontUseonlyfortesting
 
 on:
   #push:
@@ -16,13 +16,13 @@ on:
       BASE_PROJECT:
         description: 'Choose a base project:'
         required: true
-        default: 'ArrowOS13-'
+        default: 'ArrowOS13'
         type: choice
         options:
-          - 'ArrowOS13-'
-          - 'DerpFest13-'
-          - 'LineageOS20-'
-          - 'LineageOS21-'
+          - 'ArrowOS13'
+          - 'DerpFest13'
+          - 'LineageOS20'
+          - 'LineageOS21'
       BUILD_DIFFERENT_ROM:
         description: "Command to initialize a different 'repo' project: repo init -u https://github.com/crdroidandroid/android.git -b 14.0 --git-lfs"
         required: false
@@ -86,10 +86,10 @@ jobs:
         run: |
           BASE_PROJECT_NAME="${{ inputs.BASE_PROJECT }}"
           case $BASE_PROJECT_NAME in
-            'ArrowOS13-') BASE_PROJECT_VALUE='repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1' ;;
-            'DerpFest13-') BASE_PROJECT_VALUE='repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13 --depth=1' ;;
-            'LineageOS20-') BASE_PROJECT_VALUE='repo init -u https://github.com/accupara/los20.git -b lineage-20.0 --git-lfs --depth=1' ;;
-            'LineageOS21-') BASE_PROJECT_VALUE='repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs --depth=1' ;;
+            'ArrowOS13') BASE_PROJECT_VALUE='repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1 --depth=1' ;;
+            'DerpFest13') BASE_PROJECT_VALUE='repo init -u https://github.com/DerpFest-AOSP/manifest.git -b 13 --depth=1' ;;
+            'LineageOS20') BASE_PROJECT_VALUE='repo init -u https://github.com/accupara/los20.git -b lineage-20.0 --git-lfs --depth=1' ;;
+            'LineageOS21') BASE_PROJECT_VALUE='repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs --depth=1' ;;
             *) BASE_PROJECT_VALUE='default-command' ;;  # Provide a default command for unknown options
           esac
           echo "BASE_PROJECT_NAME=$BASE_PROJECT_NAME" >> $GITHUB_ENV
@@ -117,11 +117,9 @@ jobs:
           echo "#!/bin/bash" > run.sh
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run.sh
           echo '#gh auth login --with-token $GH_TOKEN' >> run.sh
-          echo "cd /crave-devspaces" >> run.sh
+          echo "#gh auth status" >> run.sh
           echo "mkdir -p ${{ inputs.BASE_PROJECT }}" >> run.sh
           echo 'bp=$(cat bp.txt)' >> run.sh
-          echo "rm -rf crave_rom_builder" >> run.sh
-          echo 'git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git' >> run.sh
           echo "cp -f crave_rom_builder/run1.sh run1.sh" >> run.sh
           echo "chmod +x run1.sh" >> run.sh
           echo "cp -f crave_rom_builder/craverun.sh ${{ inputs.BASE_PROJECT }}" >> run.sh
@@ -230,4 +228,4 @@ jobs:
       continue-on-error: true
     - name: Stop Crave on Workflow Cancellation
       if: cancelled()
-      run: cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
+      run: cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
