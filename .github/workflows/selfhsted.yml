@@ -116,8 +116,8 @@ jobs:
 
           echo "#!/bin/bash" > run.sh
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run.sh
-          echo 'gh auth login --with-token $GH_TOKEN' >> run.sh
-          echo "gh auth status" >> run.sh
+          echo '#gh auth login --with-token $GH_TOKEN' >> run.sh
+          echo "#gh auth status" >> run.sh
           echo "mkdir -p ${{ inputs.BASE_PROJECT }}" >> run.sh
           echo 'bp=$(cat bp.txt)' >> run.sh
           echo "cp -f crave_rom_builder/run1.sh run1.sh" >> run.sh
@@ -126,7 +126,7 @@ jobs:
           echo "./run1.sh" >> run.sh
           echo 'echo "$(pwd)" > bp.txt'
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run1.sh
-          # echo 'gh auth login --with-token $GH_TOKEN' >> run1.sh
+          echo '#gh auth login --with-token $GH_TOKEN' >> run1.sh
           echo "cd ${{ inputs.BASE_PROJECT }}" > run1.sh
           echo "${BASE_PROJECT_VALUE}" >> run1.sh
           echo "chmod +x craverun.sh" >> run1.sh
