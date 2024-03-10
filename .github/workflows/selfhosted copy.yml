@@ -120,6 +120,7 @@ jobs:
           echo "cd /crave-devspaces" >> run.sh
           echo "mkdir -p ${{ inputs.BASE_PROJECT }}" >> run.sh
           echo 'bp=$(cat bp.txt)' >> run.sh
+          echo 'git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git' >> run.sh
           echo "cp -f crave_rom_builder/run1.sh run1.sh" >> run.sh
           echo "chmod +x run1.sh" >> run.sh
           echo "cp -f crave_rom_builder/craverun.sh ${{ inputs.BASE_PROJECT }}" >> run.sh
