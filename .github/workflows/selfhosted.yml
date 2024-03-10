@@ -27,7 +27,7 @@ on:
         description: "Command to initialize a different 'repo' project: repo init -u https://github.com/crdroidandroid/android.git -b 14.0 --git-lfs"
         required: false
       REMOVALS:
-        description: "Folders to be removed before syncing(this folder pre deleted when building other romprebuilts/clang/host/linux-x86 prebuilts/rust):"
+        description: "Folders to be removed before syncing(deleted this folders when building other rom on first run:prebuilts/clang/host/linux-x86 prebuilts/rust):"
         required: false
       LOCAL_MANIFEST:
         description: "Personal local manifest [repository or raw]:"
