@@ -230,4 +230,4 @@ jobs:
       continue-on-error: true
     - name: Stop Crave on Workflow Cancellation
       if: cancelled()
-      run: cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
+      run: cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
