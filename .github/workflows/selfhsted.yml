@@ -224,12 +224,6 @@ jobs:
       uses: actions/checkout@v4
     - name: Run Crave
       run: |
-        echo ${{ inputs.BASE_PROJECT }}
-        echo ${{ github.workflow }}
-        REPO_NAME=$(basename "${GITHUB_REPOSITORY}")
-        echo "Repository Name: $REPO_NAME"
-        #  Run your commands and continue even if there is an error
-       
         echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh
 
       # - name: Stop Crave on Workflow Cancellation
