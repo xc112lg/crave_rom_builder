@@ -8,7 +8,7 @@ crave run --no-patch --clean -- "          #© crave.io Inc. 2017-2024
         #no dual account just to build faster
               #respect the rule
 repo init -u https://github.com/crdroidandroid/android.git -b 14.0 --git-lfs
-rm -rf .repo/local_manifests prebuilts/clang/host/linux-x86
+rm -rf .repo/local_manifests prebuilts/clang/host/linux-x86 prebuilts/rust
 git clone https://github.com/xc112lg/local_manifests -b main .repo/local_manifests
 repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags
 cd kernel/lge/msm8996;sleep 1 && git fetch https://github.com/xc112lg/msm8996_lge_kernel.git patch-1;sleep 1 && git cherry-pick 581d1240a1ac99ebbf172ec95b8d7f4f40ca4d21;cd ../../../ 
