@@ -200,7 +200,7 @@ jobs:
           ./crave -c ./crave.conf devspace || true
 
 
-          crave devspace -- "if tmux has-session -t ghactions; then 
+          ./crave devspace -- "if tmux has-session -t ghactions; then 
           echo "Runner is already Running" 
              else 
                 tmux kill-session -t ghactions;
