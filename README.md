@@ -30,10 +30,7 @@ foss.crave.io account
 - On the top menu bar of the repository, click on Actions
 - Self-Hosted Runner -> New Runner
 ![image](https://github.com/sounddrill31/crave_aosp_builder/assets/84176052/31cdc938-c421-498b-a61b-6b79992ce1ba)
-- Enter Devspace
-    https://opendroid.pugzarecute.com/wiki/Crave_Devspace#How_to_Prepare_Environment
-- Follow the instructions given by github to set up your runner
-- Do not run ./run.sh, instead, start your build through workflow dispatch
+- Create Seperate Action to Setup runner, just input the command
 
 
 ## Inputs Explanation
