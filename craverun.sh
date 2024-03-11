@@ -15,6 +15,6 @@ cd kernel/lge/msm8996;sleep 1 && git fetch https://github.com/xc112lg/msm8996_lg
 source build/envsetup.sh
 lunch lineage_h872-userdebug
 m installclean
-m bacon
+m api-stubs-docs-non-updatable-update-current-api;m bacon
 "
 . pull.sh
