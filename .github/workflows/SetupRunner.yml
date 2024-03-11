@@ -1,0 +1,62 @@
+#Credits to
+  #UV n Team
+  #sounddrill31
+  #AntoninoScordino
+#work by xc112lg / xc112@xda
+ 
+  
+name: Setup Runner
+
+on:
+  #push:
+   # branches:
+    #  - main 
+  workflow_dispatch:
+    inputs:
+      A:
+        description: " Download the latest runner package:curl -o actions-runner-linux-x64-2.314.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.314.1/actions-runner-linux-x64-2.314.1.tar.gz"
+        required: true
+        default: 'curl -o actions-runner-linux-x64-2.314.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.314.1/actions-runner-linux-x64-2.314.1.tar.gz'
+      B:
+        description: "tar xzf ./actions-runner-linux-x64-2.314.1.tar.gz"
+        required: true
+        default: 'tar xzf ./actions-runner-linux-x64-2.314.1.tar.gz'
+      C:
+        description: "Create the runner and start the configuration experience:./config.sh --url https://github.com/xc112lg/crave_rom_builder --token BGKZGPDBR2BRZ2SAMPLEONLY"
+        required: true
+        default: './config.sh --url https://github.com/xc112lg/crave_rom_builder --token BGKZGPDBR2BRsampleonly'
+
+     
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git clean -fdX
+
+      - name: Download and Run get_crave.sh
+        run: |
+          curl -s https://raw.githubusercontent.com/accupara/crave/master/get_crave.sh | bash -s --
+          echo '${{ secrets.CONF }}' > crave.conf
+
+      - name: Run Crave
+        run: |
+          echo ${{ inputs.A }}
+          echo ${{ github.workflow }}
+          REPO_NAME=$(basename "${GITHUB_REPOSITORY}")
+          echo "Repository Name: $REPO_NAME"
+          #  Run your commands and continue even if there is an error
+          ./crave -c ./crave.conf devspace || true
+          ./crave devspace 'rm -rf actions-runner &&mkdir actions-runner && cd actions-runner && ${{ inputs.A }} &&  ${{ inputs.B }} && ${{ inputs.C }} /n'
+          #./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh' || true
+
+      - name: Stop Crave on Workflow Cancellation
+        if: cancelled()
+        run: ./crave devspace 'cd ${{ inputs.BASE_PROJECT }}&&crave stop --all'
