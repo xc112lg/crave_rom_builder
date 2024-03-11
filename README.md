@@ -30,9 +30,8 @@ foss.crave.io account
 - On the top menu bar of the repository, click on Actions
 - Self-Hosted Runner -> New Runner
 ![image](https://github.com/sounddrill31/crave_aosp_builder/assets/84176052/31cdc938-c421-498b-a61b-6b79992ce1ba)
-- Create Seperate Action to Setup runner, just input the command
-
-
+- Created Seperate Action to Setup runner, just input the command 
+![image](https://github.com/xc112lg/crave_rom_builder/assets/152837944/1709f519-372a-42df-8397-ae52f5344a62)
 ## Inputs Explanation
 ### Base Project
     - These are the projects everyone can build, with a foss.crave.io account
