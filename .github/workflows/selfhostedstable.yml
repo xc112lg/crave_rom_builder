@@ -212,6 +212,7 @@ jobs:
                 tmux new-session -d -s ghactions; 
                 tmux send-keys -t ghactions './actions-runner/run.sh' Enter 
                 echo "Runner Started"
+                tmux kill-session -t ghactions
               fi "
   test:
     timeout-minutes: 720      
