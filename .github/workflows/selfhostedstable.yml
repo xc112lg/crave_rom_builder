@@ -206,7 +206,7 @@ jobs:
           ./crave -c ./crave.conf devspace || true
 
 
-          ./crave devspace -- "tmux kill-session -t ghactions;tmux new-session -d -s ghactions; 
+          ./crave devspace -- "tmux new-session -d -s ghactions; 
                                tmux send-keys -t ghactions 'C-a' 'C-k' './actions-runner/run.sh ' Enter
                                echo "Runner Started""
   test:
