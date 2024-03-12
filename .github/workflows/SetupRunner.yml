@@ -54,7 +54,7 @@ jobs:
           echo "Repository Name: $REPO_NAME"
           #  Run your commands and continue even if there is an error
           ./crave -c ./crave.conf devspace || true
-          ./crave devspace 'rm -rf actions-runner &&mkdir actions-runner && cd actions-runner && ${{ inputs.A }} &&  ${{ inputs.B }} && ${{ inputs.C }} /n'
+          ./crave devspace ' tmux kill-session -t ghaction&&rm -rf actions-runner &&mkdir actions-runner && cd actions-runner && ${{ inputs.A }} &&  ${{ inputs.B }} && ${{ inputs.C }} /n'
           #./crave devspace 'echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh' || true
 
       - name: Stop Crave on Workflow Cancellation
