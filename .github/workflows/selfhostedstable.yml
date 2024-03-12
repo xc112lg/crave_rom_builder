@@ -241,10 +241,11 @@ jobs:
       permissions:
         contents: write
       needs: test  
+      if: github.event.workflow_run.conclusion == 'canceled'
       steps:
         - uses: actions/checkout@v4
 
         - name: End Session
-          if: cancelled()
+
           run: |
             ./crave devspace -- "tmux kill-session -t ghactions"
