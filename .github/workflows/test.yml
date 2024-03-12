@@ -231,5 +231,5 @@ jobs:
       if: cancelled()  
       run: |
         cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
-        cd /crave-devspaces && sudo cd actions-runner &&bash svc.sh stop
+        cd /crave-devspaces && cd actions-runner &&bash svc.sh stop
 
