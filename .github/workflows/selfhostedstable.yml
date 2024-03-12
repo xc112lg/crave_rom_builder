@@ -231,19 +231,18 @@ jobs:
       run: |
         echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh
       continue-on-error: true
-
+    - name: Stop Crave on Workflow Cancellation
+      run: cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all;
 
 
   test1:
-              runs-on: ubuntu-latest
-              permissions:
-                contents: write
-              needs: test
-              steps:
-                - uses: actions/checkout@v4
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+      needs: test  
+      steps:
+        - uses: actions/checkout@v4
 
-                - name: Stop Crave on Workflow Cancellation
-                  if: cancelled()
-                  run: |
-                    
-                    ./crave devspace -- "cd ${{ inputs.BASE_PROJECT }}&&crave stop --all;tmux kill-session -t ghactions"
+        - name: End Session
+          run: |
+            ./crave devspace -- "tmux kill-session -t ghactions"
