@@ -5,7 +5,7 @@
 #work by xc112lg / xc112@xda
  
   
-name: testonly
+name: Selfhosted Crave Rom Builder Stable
 
 on:
   #push:
@@ -123,7 +123,6 @@ jobs:
           echo '#gh auth login --with-token $GH_TOKEN' >> run.sh
           echo "cd /crave-devspaces" >> run.sh
           echo "mkdir -p ${{ inputs.BASE_PROJECT }}" >> run.sh
-          echo 'bp=$(cat bp.txt)' >> run.sh
           echo "rm -rf crave_rom_builder" >> run.sh
           echo 'git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git' >> run.sh
           echo "cp -f crave_rom_builder/run1.sh run1.sh" >> run.sh
@@ -224,12 +223,11 @@ jobs:
     - name: Check-out to repository
       uses: actions/checkout@v4
     - name: Run Crave
-      run: 
-        echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);echo "${{ inputs.BASE_PROJECT }}" > bp.txt;bp=$($bp);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh
+      run: |
+        echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh
       continue-on-error: true
     - name: Stop Crave on Workflow Cancellation
       if: cancelled()  
-      run: |
-        cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
-        cd /crave-devspaces && cd actions-runner &&sudo svc.sh stop
+      run: cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
+
 
