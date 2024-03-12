@@ -122,6 +122,7 @@ jobs:
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run.sh
           echo '#gh auth login --with-token $GH_TOKEN' >> run.sh
           echo "cd /crave-devspaces" >> run.sh
+          echo "touch bp.txt" >> run.sh
           echo "mkdir -p ${{ inputs.BASE_PROJECT }}" >> run.sh
           echo 'bp=$(cat bp.txt)' >> run.sh
           echo "rm -rf crave_rom_builder" >> run.sh
