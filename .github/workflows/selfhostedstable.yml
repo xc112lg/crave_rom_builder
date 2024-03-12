@@ -237,12 +237,12 @@ jobs:
 
 
   test1:
-      runs-on: ubuntu-latest
-      permissions:
-        contents: write
-      steps:
-        - uses: actions/checkout@v4
+              runs-on: ubuntu-latest
+              permissions:
+                contents: write
+              steps:
+                - uses: actions/checkout@v4
 
-        - name: End Session
-          run: |
-            ./crave devspace -- "tmux kill-session -t ghactions"
+                - name: End Session
+                  run: |
+                    ./crave devspace -- "tmux kill-session -t ghactions"
