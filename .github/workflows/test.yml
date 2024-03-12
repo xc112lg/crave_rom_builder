@@ -5,7 +5,7 @@
 #work by xc112lg / xc112@xda
  
   
-name: testonly
+name: TestAction
 
 on:
   #push:
