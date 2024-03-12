@@ -2,9 +2,7 @@
 export GH_TOKEN=$(cat gh_token.txt)
 #gh auth login --with-token $GH_TOKEN
 cd /crave-devspaces
-touch bp.txt
 mkdir -p ArrowOS13-
-bp=$(cat bp.txt)
 rm -rf crave_rom_builder
 git clone https://$GH_TOKEN@github.com/xc112lg/crave_rom_builder.git
 cp -f crave_rom_builder/run1.sh run1.sh
