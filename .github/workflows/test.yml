@@ -5,7 +5,7 @@
 #work by xc112lg / xc112@xda
  
   
-name: Selfhosted Crave Rom Builder Stable
+name: testonly
 
 on:
   #push:
