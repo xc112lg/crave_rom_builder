@@ -229,7 +229,7 @@ jobs:
       continue-on-error: true
     - name: Stop Crave on Workflow Cancellation
       if: cancelled()  
-      run: cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all && tmux kill-session -t ghactions
+      run: cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
 
 
   test1:
