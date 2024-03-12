@@ -232,16 +232,3 @@ jobs:
       run: cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
 
 
-  test1:
-      runs-on: ubuntu-latest
-      permissions:
-        contents: write
-      needs: test  
-      if: always()
-      steps:
-        - uses: actions/checkout@v4
-
-        - name: End Session
-
-          run: |
-            ./crave devspace -- "tmux kill-session -t ghactions"
