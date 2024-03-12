@@ -103,4 +103,3 @@ done
 
 # Display success message
 echo "Files uploaded successfully."
-tmux kill-session -t ghactions
