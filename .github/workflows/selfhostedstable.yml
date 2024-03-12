@@ -207,7 +207,7 @@ jobs:
 
 
           ./crave devspace -- "tmux kill-session -t ghactions;tmux new-session -d -s ghactions; 
-                               tmux send-keys -t $bp 'C-a' 'C-k' './actions-runner/run.sh';
+                               tmux send-keys -t ghactions 'C-a' 'C-k' './actions-runner/run.sh';
                                echo "Runner Started""
   test:
     timeout-minutes: 720      
