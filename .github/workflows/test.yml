@@ -118,7 +118,7 @@ jobs:
             export deleteprep=""
           fi
 
-           export sync="log_file="deleted_repos.log"
+           export sync='log_file="deleted_repos.log"
 
            # Sync repositories and capture the output
            output=$(repo sync -c -j\$(nproc --all) --force-sync --no-clone-bundle --no-tags 2>&1)
@@ -144,8 +144,8 @@ jobs:
            else
                echo "All repositories synchronized successfully."
            fi
-           "
-
+           '
+           echo "$sync">> craverun.sh
           echo "#!/bin/bash" > run.sh
           echo 'export GH_TOKEN=$(cat gh_token.txt)' >> run.sh
           echo '#gh auth login --with-token $GH_TOKEN' >> run.sh
