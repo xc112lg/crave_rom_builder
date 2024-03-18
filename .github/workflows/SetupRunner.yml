@@ -54,8 +54,8 @@ jobs:
           echo "Repository Name: $REPO_NAME"
           #  Run your commands and continue even if there is an error
           ./crave -c ./crave.conf devspace || true
-          ./crave devspace "if tmux has-session -t ghactions; then 
-          tmux kill-session -t ghactions;
+          ./crave devspace "if tmux has-session -t ghaction; then 
+          tmux kill-session -t ghaction;
           else 
            
             echo "Runner Started"

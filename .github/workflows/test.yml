@@ -197,9 +197,38 @@ jobs:
 
 
           
+          
       - name: Run Crave
         run: |
           echo ${{ inputs.BASE_PROJECT }}
           echo ${{ github.workflow }}
           REPO_NAME=$(basename "${GITHUB_REPOSITORY}")
           echo "Repository Name: $REPO_NAME"
+          #  Run your commands and continue even if there is an error
+          ./crave -c ./crave.conf devspace || true
+
+
+          ./crave devspace -- "tmux new-session -d -s ghaction; 
+                              tmux send-keys -t ghaction 'C-a' 'C-k' './actions-runner/run.sh ' Enter
+                              echo "Runner Started""
+  test:
+    timeout-minutes: 720      
+    name: Build using foss.crave.io
+    needs: run-devspace-and-tmux    
+    runs-on: self-hosted
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+
+
+
+      # Check-out in order to access the repository's files.
+    - name: Check-out to repository
+      uses: actions/checkout@v4
+    - name: Run Crave
+      run: |
+        echo "${{ secrets.GH_TOKEN }}" > gh_token.txt;export GH_TOKEN=$(cat gh_token.txt);rm -rf crave_rom_builder;git clone https://$GH_TOKEN@github.com/${{ github.repository }}.git;rm run.sh;cp -f crave_rom_builder/run.sh run.sh;chmod +x run.sh;. run.sh
+      continue-on-error: true
+    - name: Stop Crave on Workflow Cancellation
+      if: cancelled()  
+      run: cd /crave-devspaces && cd ${{ inputs.BASE_PROJECT }}&&crave stop --all
