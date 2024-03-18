@@ -178,7 +178,7 @@ jobs:
           echo "${{ inputs.BUILD_DIFFERENT_ROM }}">> craverun.sh
           echo "rm -rf .repo/local_manifests ${{ inputs.REMOVALS }}">> craverun.sh
           echo "git clone ${{ inputs.LOCAL_MANIFEST}} -b ${{ inputs.LOCAL_MANIFEST_BRANCH }} .repo/local_manifests">> craverun.sh
-          echo  ". resync.sh">> craverun.sh
+          echo  '. resync.sh'>> craverun.sh
           echo "${{ inputs.EXTRA_COMMAND }} ">> craverun.sh
           echo "source build/envsetup.sh">> craverun.sh
           echo "lunch ${{ inputs.PRODUCT_NAME }}${{ inputs.BUILD_TYPE }}">> craverun.sh
