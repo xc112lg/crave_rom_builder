@@ -30,7 +30,7 @@ on:
       BUILD_COMMAND:
         description: 'Command to be used for compiling:'
         required: false
-        default: 'm bacon'
+        default: 'curl -sf https://raw.githubusercontent.com/krishnaspeace/script/crdroid-bego/build.sh | bash'
       CLEAN_BUILD:
         description: 'Build with a clean workspace? Selecting Yes here will reset the data to its default state removing any of your work, Ask in discord if you dont understand this option, If i see builders spamming yes on this option i will cancel their build'
         required: true
