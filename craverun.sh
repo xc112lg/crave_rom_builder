@@ -15,6 +15,6 @@ git clone https://github.com/xc112lg/local_manifests -b main .repo/local_manifes
 source build/envsetup.sh
 lunch lineage_h872-userdebug
 m installclean
-m bacon
+im syncing only co command to build
 "
 . pull.sh
