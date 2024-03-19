@@ -7,6 +7,14 @@ crave run --no-patch --clean -- "          #© crave.io Inc. 2017-2024
               #Thanks to UV n Team
         #no dual account just to build faster
               #respect the rule
-curl -sf https://raw.githubusercontent.com/krishnaspeace/script/crdroid-bego/build.sh | bash
+
+rm -rf .repo/local_manifests 
+git clone https://github.com/xc112lg/local_manifests -b a5 .repo/local_manifests
+/opt/crave/resync.sh
+ 
+source build/envsetup.sh
+lunch lineage_a5y17lte-userdebug
+m installclean
+m bacon
 "
 . pull.sh
