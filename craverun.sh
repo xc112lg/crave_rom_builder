@@ -7,6 +7,6 @@ crave run --no-patch  -- "          #© crave.io Inc. 2017-2024
               #Thanks to UV n Team
         #no dual account just to build faster
               #respect the rule
-mkdir hanuman;ls
+mkdir justdoingtesting; ls
 "
 . pull.sh
