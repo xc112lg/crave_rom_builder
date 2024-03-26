@@ -2,6 +2,7 @@
 
 rm crave_rom_builder/*.zip crave_rom_builder/*.img
 #crave pull out/target/product/*/recovery.img
+crave ssh -- ls
 crave pull out/target/product/*/*.zip out/target/product/*/recovery.img
 
 
